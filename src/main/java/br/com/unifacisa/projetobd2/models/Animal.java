@@ -10,7 +10,7 @@ public class Animal {
 	private BigDecimal peso;
 	private BigDecimal altura;
 	private Date dtUltMed;
-	private String raça;
+	private String raca;
 	private BigDecimal precoCompra = new BigDecimal("0");
 	private BigDecimal precoVenda;
 	private Date DtNasc;
@@ -54,12 +54,12 @@ public class Animal {
 		this.dtUltMed = dtUltMed;
 	}
 
-	public String getRaça() {
-		return raça;
+	public String getRaca() {
+		return raca;
 	}
 
-	public void setRaça(String raça) {
-		this.raça = raça;
+	public void setRaca(String raça) {
+		this.raca = raça;
 	}
 
 	public BigDecimal getPrecoCompra() {
