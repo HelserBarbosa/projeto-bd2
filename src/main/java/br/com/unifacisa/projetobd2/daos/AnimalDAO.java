@@ -19,9 +19,8 @@ import br.com.unifacisa.projetobd2.util.ConnectionFactory;
 public class AnimalDAO {
 
 	public Animal inserirAnimal(Animal animal) {
-		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement statement = null;
-
+		Connection connection = new ConnectionFactory().getConnection();
 		StringBuilder sql = new StringBuilder(
 				"INSERT INTO animal(registro, tipo, peso, altura, dat_ult_med, raca, preco_compra, preco_venda, dat_nasc)");
 		sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);");
@@ -38,11 +37,11 @@ public class AnimalDAO {
 			statement.setDate(9, animal.getDtNasc());
 			statement.execute();
 			statement.close();
-			ConnectionFactory.closeConnection();
+			connection.close();
 			return setGeneratedKey(animal, statement);
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
-		} 
+		}
 
 	}
 
@@ -60,13 +59,12 @@ public class AnimalDAO {
 	}
 
 	public Animal inserirAnimalSemPesoAlturaMedicao(Animal animal) {
+		Connection connection = new ConnectionFactory().getConnection();
 		try {
 
 			StringBuilder sql = new StringBuilder(
 					"INSERT INTO animal(registro, tipo, raca, preco_compra, preco_venda, dat_nasc)");
 			sql.append(" VALUES(?, ?, ?, ?, ?, ?);");
-
-			Connection connection = ConnectionFactory.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
 			statement.setLong(1, animal.getRegistro());
@@ -77,24 +75,22 @@ public class AnimalDAO {
 			statement.setDate(6, animal.getDtNasc());
 			statement.execute();
 			statement.close();
+			connection.close();
 			return setGeneratedKey(animal, statement);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		} finally {
-			ConnectionFactory.closeConnection();
 		}
 
 	}
 
 	public Animal inserirAnimalSemPrecoVenda(Animal animal) {
+		Connection connection = new ConnectionFactory().getConnection();
 		try {
 
 			StringBuilder sql = new StringBuilder(
 					"INSERT INTO animal(registro, tipo, peso, altura, dat_ult_med, raca, preco_compra, dat_nasc)");
 			sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
@@ -110,8 +106,8 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
-			return setGeneratedKey(animal, statement); 
+			connection.close();
+			return setGeneratedKey(animal, statement);
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -119,13 +115,12 @@ public class AnimalDAO {
 	}
 
 	public Animal inserirAnimalSemPrecoCompra(Animal animal) {
+		Connection connection = new ConnectionFactory().getConnection();
 		try {
 
 			StringBuilder sql = new StringBuilder(
 					"INSERT INTO animal(registro, tipo, peso, altura, dat_ult_med, raca, preco_venda, dat_nasc)");
 			sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
@@ -141,9 +136,8 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			
-			ConnectionFactory.closeConnection();
-			return setGeneratedKey(animal, statement); 
+			connection.close();
+			return setGeneratedKey(animal, statement);
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -151,13 +145,12 @@ public class AnimalDAO {
 	}
 
 	public Animal inserirAnimalSemPrecoCompraVenda(Animal animal) {
+		Connection connection = new ConnectionFactory().getConnection();
 		try {
 
 			StringBuilder sql = new StringBuilder(
 					"INSERT INTO animal(registro, tipo, peso, altura, dat_ult_med, raca, dat_nasc)");
 			sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?);");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
@@ -172,8 +165,8 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
-			return setGeneratedKey(animal, statement); 
+			connection.close();
+			return setGeneratedKey(animal, statement);
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -181,13 +174,12 @@ public class AnimalDAO {
 	}
 
 	public Animal inserirAnimalSemDataNasc(Animal animal) {
+		Connection connection = new ConnectionFactory().getConnection();
 		try {
 
 			StringBuilder sql = new StringBuilder(
 					"INSERT INTO animal(registro, tipo, peso, altura, dat_ult_med, raca, preco_compra, preco_venda)");
 			sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
@@ -203,8 +195,8 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
-			return setGeneratedKey(animal, statement); 
+			connection.close();
+			return setGeneratedKey(animal, statement);
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -212,13 +204,12 @@ public class AnimalDAO {
 	}
 
 	public void updateAnimalPesoAlturaDtaMed(Animal animal) {
+		Connection connection = new ConnectionFactory().getConnection();
 
 		try {
 
 			StringBuilder sql = new StringBuilder("UPDATE animal SET peso=?, altura=?, dat_ult_med=?");
 			sql.append("WHERE registro=?;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setBigDecimal(1, animal.getPeso());
@@ -229,7 +220,7 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
+			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -237,13 +228,11 @@ public class AnimalDAO {
 	}
 
 	public void updateAnimalPesoDtaMed(Animal animal) {
-
+		Connection connection = new ConnectionFactory().getConnection();
 		try {
 
 			StringBuilder sql = new StringBuilder("UPDATE animal SET peso=?, dat_ult_med=?");
 			sql.append("WHERE registro=?;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setBigDecimal(1, animal.getPeso());
@@ -253,7 +242,7 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
+			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -261,13 +250,12 @@ public class AnimalDAO {
 	}
 
 	public void updateAnimalAlturaDtaMed(Animal animal) {
+		Connection connection = new ConnectionFactory().getConnection();
 
 		try {
 
 			StringBuilder sql = new StringBuilder("UPDATE animal SET altura=?, dat_ult_med=?");
 			sql.append("WHERE registro=?;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setBigDecimal(1, animal.getAltura());
@@ -277,7 +265,7 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
+			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -285,13 +273,12 @@ public class AnimalDAO {
 	}
 
 	public void updateAnimalPrecoVenda(Animal animal) {
+		Connection connection = new ConnectionFactory().getConnection();
 
 		try {
 
 			StringBuilder sql = new StringBuilder("UPDATE animal SET preco_venda=?,");
 			sql.append("WHERE registro=?;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setBigDecimal(1, animal.getPrecoVenda());
@@ -300,7 +287,7 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
+			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -308,13 +295,12 @@ public class AnimalDAO {
 	}
 
 	public void updateAnimalPrecoCompra(Animal animal) {
+		Connection connection = new ConnectionFactory().getConnection();
 
 		try {
 
 			StringBuilder sql = new StringBuilder("UPDATE animal SET preco_compra=?,");
 			sql.append("WHERE registro=?;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setBigDecimal(1, animal.getPrecoCompra());
@@ -323,7 +309,7 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
+			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -331,13 +317,12 @@ public class AnimalDAO {
 	}
 
 	public void updateAnimalPrecoCompraVenda(Animal animal) {
+		Connection connection = new ConnectionFactory().getConnection();
 
 		try {
 
 			StringBuilder sql = new StringBuilder("UPDATE animal SET preco_compra=?, preco_venda=?");
 			sql.append("WHERE registro=?;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setBigDecimal(1, animal.getPrecoCompra());
@@ -347,7 +332,7 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
+			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -355,13 +340,12 @@ public class AnimalDAO {
 	}
 
 	public void updateAnimalTipo(Animal animal) {
+		Connection connection = new ConnectionFactory().getConnection();
 
 		try {
 
 			StringBuilder sql = new StringBuilder("UPDATE animal SET tipo=?");
 			sql.append("WHERE registro=?;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, animal.getTipo());
@@ -370,7 +354,7 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
+			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -378,13 +362,12 @@ public class AnimalDAO {
 	}
 
 	public void updateAnimalRaca(Animal animal) {
+		Connection connection = new ConnectionFactory().getConnection();
 
 		try {
 
 			StringBuilder sql = new StringBuilder("UPDATE animal SET raca=?,tipo=?");
 			sql.append("WHERE registro=?;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, animal.getRaca());
@@ -393,7 +376,7 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
+			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -401,13 +384,12 @@ public class AnimalDAO {
 	}
 
 	public void updateAnimalTipoRaca(Animal animal) {
+		Connection connection = new ConnectionFactory().getConnection();
 
 		try {
 
 			StringBuilder sql = new StringBuilder("UPDATE animal SET raca=?");
 			sql.append("WHERE registro=?;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, animal.getRaca());
@@ -417,7 +399,7 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
+			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -425,12 +407,11 @@ public class AnimalDAO {
 	}
 
 	public void DeletarAnimalPorRegistro(Long registro) {
+		Connection connection = new ConnectionFactory().getConnection();
 
 		try {
 
 			StringBuilder sql = new StringBuilder("DELETE FROM animal WHERE registro=?;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setLong(1, registro);
@@ -438,7 +419,7 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
+			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -446,11 +427,10 @@ public class AnimalDAO {
 	}
 
 	public void DeletarAnimalPorTipo(String tipo) {
+		Connection connection = new ConnectionFactory().getConnection();
 		try {
 
 			StringBuilder sql = new StringBuilder("DELETE FROM animal WHERE tipo=?;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, tipo);
@@ -458,7 +438,7 @@ public class AnimalDAO {
 			statement.execute();
 
 			statement.close();
-			ConnectionFactory.closeConnection();
+			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
@@ -466,11 +446,10 @@ public class AnimalDAO {
 	}
 
 	public List<Animal> listar() {
+		Connection connection = new ConnectionFactory().getConnection();
 		try {
 
 			StringBuilder sql = new StringBuilder("SELECT * FROM animal;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 
@@ -488,11 +467,10 @@ public class AnimalDAO {
 	}
 
 	public List<Animal> listarPorTipo(String tipo) {
+		Connection connection = new ConnectionFactory().getConnection();
 		try {
 
 			StringBuilder sql = new StringBuilder("SELECT * FROM animal WHERE tipo=?;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 
@@ -512,11 +490,10 @@ public class AnimalDAO {
 	}
 
 	public List<Animal> listarPorPrecoVenda(BigDecimal precoVenda) {
+		Connection connection = new ConnectionFactory().getConnection();
 		try {
 
 			StringBuilder sql = new StringBuilder("SELECT * FROM animal WHERE preco_venda <=?;");
-
-			Connection connection = ConnectionFactory.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 

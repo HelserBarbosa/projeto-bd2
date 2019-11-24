@@ -8,42 +8,15 @@ import java.util.Properties;
 import br.com.unifacisa.projetobd2.exceptions.PetShopConnectionException;
 
 public class ConnectionFactory {
-	
-	private static Connection conn;
 
-	public static Connection getConnection() {
+	public Connection getConnection() {
+		Properties properties = PropertiesUtils.getProperties();
+		String url = properties.getProperty("url");
 		try {
-			if (conn == null) {
-				Properties properties = PropertiesUtils.getProperties();
-				String url = properties.getProperty("url");
-				System.out.println(properties);
-				System.out.println(url);
-				conn = DriverManager.getConnection(url, properties);
-			}
-			return conn;
+			return DriverManager.getConnection(url, properties);
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
-		} 
-	}
-	
-	public static void closeConnection() {
-		if (conn != null) {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				throw new PetShopConnectionException(e.getMessage());
-			}
 		}
 	}
 
-	public static void rollback() {
-		if (conn != null) {
-			try {
-				conn.rollback();
-			} catch (SQLException e) {
-				throw new PetShopConnectionException(e.getMessage());
-			}
-		}
-	}
-	
 }

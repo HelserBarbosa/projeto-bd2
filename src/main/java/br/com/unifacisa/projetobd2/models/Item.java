@@ -3,9 +3,9 @@ package br.com.unifacisa.projetobd2.models;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Item {
 
@@ -14,6 +14,7 @@ public class Item {
 	private String tipo;
 	private BigDecimal precoFornecedor;
 	private BigDecimal precoLoja;
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate validade;
 	private Integer quantidade;
 
@@ -72,13 +73,10 @@ public class Item {
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
-	
 
 	public Date getSqlDate() throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		return new java.sql.Date(sdf.parse(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(validade)).getTime());
+		return Date.valueOf(validade); 
 	}
-
 
 	@Override
 	public String toString() {
@@ -86,6 +84,5 @@ public class Item {
 				+ precoFornecedor + ", precoLoja=" + precoLoja + ", validade=" + validade + ", quantidade=" + quantidade
 				+ "]";
 	}
-
 
 }
