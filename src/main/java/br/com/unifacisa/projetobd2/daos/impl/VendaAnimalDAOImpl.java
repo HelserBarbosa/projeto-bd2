@@ -1,4 +1,4 @@
-package br.com.unifacisa.projetobd2.daos.interfaces;
+package br.com.unifacisa.projetobd2.daos.impl;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -7,8 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import br.com.unifacisa.projetobd2.daos.AnimalDAO;
+import br.com.unifacisa.projetobd2.daos.FuncionarioDAO;
 import br.com.unifacisa.projetobd2.daos.VendaAnimalDAO;
 import br.com.unifacisa.projetobd2.exceptions.PetShopConnectionException;
+import br.com.unifacisa.projetobd2.models.Animal;
+import br.com.unifacisa.projetobd2.models.Funcionario;
 import br.com.unifacisa.projetobd2.models.VendaAnimal;
 import br.com.unifacisa.projetobd2.util.ConnectionFactory;
 import br.com.unifacisa.projetobd2.util.SQLUtils;
@@ -65,6 +69,14 @@ public class VendaAnimalDAOImpl implements VendaAnimalDAO {
 	
 	public static void main(String[] args) {
 		VendaAnimal va = new VendaAnimal();
+		Animal animal = new Animal();
+		AnimalDAO animalDao = new AnimalDAO();
+		FuncionarioDAO funcionarioDao = new FuncionarioDAOImpl();
+		Funcionario funcionario = new Funcionario();
+		animalDao.inserirAnimal(animal);
+		
+		va.setFuncionario(funcionario);
+		va.setAnimal(animal);
 		va.setAno("2019");
 		va.setComissao(new BigDecimal("5"));
 		va.setDesconto(new BigDecimal("5"));

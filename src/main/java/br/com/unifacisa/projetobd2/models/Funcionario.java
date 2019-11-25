@@ -1,98 +1,116 @@
 package br.com.unifacisa.projetobd2.models;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Funcionario {
 
-    private Long matricula;
-    private String nome;
-    private String cpf;
-    private String endereço;
-    private String telefone;
-    private BigDecimal salario;
-    private Date dtDemi;
-    private Date dtNasc;
-    private Date dtAdm;
-    private String funcao;
+	private Long matricula;
+	private String nome;
+	private String cpf;
+	private String endereço;
+	private String telefone;
+	private BigDecimal salario;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dtDemi;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dtNasc;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dtAdm;
+	private String funcao;
 
-    public Long getMatricula() {
-        return matricula;
-    }
+	public Date getSqlDtDemi() {
+		return Date.valueOf(dtDemi);
+	}
 
-    public void setMatricula(Long matricula) {
-        this.matricula = matricula;
-    }
+	public Date getSqlDtNasc() {
+		return Date.valueOf(dtNasc);
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public Date getSqlDtAdm() {
+		return Date.valueOf(dtAdm);
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public Long getMatricula() {
+		return matricula;
+	}
 
-    public String getCpf() {
-        return cpf;
-    }
+	public void setMatricula(Long matricula) {
+		this.matricula = matricula;
+	}
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public String getEndereço() {
-        return endereço;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public void setEndereço(String endereço) {
-        this.endereço = endereço;
-    }
+	public String getCpf() {
+		return cpf;
+	}
 
-    public String getTelefone() {
-        return telefone;
-    }
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
+	public String getEndereço() {
+		return endereço;
+	}
 
-    public BigDecimal getSalario() {
-        return salario;
-    }
+	public void setEndereço(String endereço) {
+		this.endereço = endereço;
+	}
 
-    public void setSalario(BigDecimal salario) {
-        this.salario = salario;
-    }
+	public String getTelefone() {
+		return telefone;
+	}
 
-    public Date getDtDemi() {
-        return dtDemi;
-    }
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
-    public void setDtDemi(Date dtDemi) {
-        this.dtDemi = dtDemi;
-    }
+	public BigDecimal getSalario() {
+		return salario;
+	}
 
-    public Date getDtNasc() {
-        return dtNasc;
-    }
+	public void setSalario(BigDecimal salario) {
+		this.salario = salario;
+	}
 
-    public void setDtNasc(Date dtNasc) {
-        this.dtNasc = dtNasc;
-    }
+	public LocalDate getDtDemi() {
+		return dtDemi;
+	}
 
-    public Date getDtAdm() {
-        return dtAdm;
-    }
+	public void setDtDemi(LocalDate dtDemi) {
+		this.dtDemi = dtDemi;
+	}
 
-    public void setDtAdm(Date dtAdm) {
-        this.dtAdm = dtAdm;
-    }
+	public LocalDate getDtNasc() {
+		return dtNasc;
+	}
 
-    public String getFuncao() {
-        return funcao;
-    }
+	public void setDtNasc(LocalDate dtNasc) {
+		this.dtNasc = dtNasc;
+	}
 
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
-    }
+	public LocalDate getDtAdm() {
+		return dtAdm;
+	}
+
+	public void setDtAdm(LocalDate dtAdm) {
+		this.dtAdm = dtAdm;
+	}
+
+	public String getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(String funcao) {
+		this.funcao = funcao;
+	}
 }

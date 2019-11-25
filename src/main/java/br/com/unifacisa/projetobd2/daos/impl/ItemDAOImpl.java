@@ -1,4 +1,4 @@
-package br.com.unifacisa.projetobd2.daos.interfaces;
+package br.com.unifacisa.projetobd2.daos.impl;
 
 import java.math.BigDecimal;
 import java.sql.Connection;

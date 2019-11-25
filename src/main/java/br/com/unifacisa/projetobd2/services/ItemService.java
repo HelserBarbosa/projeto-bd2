@@ -2,7 +2,7 @@ package br.com.unifacisa.projetobd2.services;
 
 import org.springframework.stereotype.Service;
 
-import br.com.unifacisa.projetobd2.daos.interfaces.ItemDAOImpl;
+import br.com.unifacisa.projetobd2.daos.impl.ItemDAOImpl;
 import br.com.unifacisa.projetobd2.models.Item;
 
 @Service

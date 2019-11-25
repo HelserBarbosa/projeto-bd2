@@ -18,5 +18,14 @@ public class ConnectionFactory {
 			throw new PetShopConnectionException(e.getMessage());
 		}
 	}
+	
+	public static void main(String[] args) {
+		new ConnectionFactory().testConnection();
+	}
+	
+	private boolean testConnection() {
+		getConnection();
+		return true;
+	}
 
 }
