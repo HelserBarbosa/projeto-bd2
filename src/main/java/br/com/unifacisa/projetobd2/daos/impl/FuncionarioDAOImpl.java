@@ -17,6 +17,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 		Connection conn = new ConnectionFactory().getConnection();
 		try {
 			PreparedStatement statement = conn.prepareStatement(SQLUtils.getExternalQuery("CRIAR_FUNCIONARIO"));
+			statement.setString(1, funcionario.getNome());
+			statement.setString(2, funcionario.getCpf());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
