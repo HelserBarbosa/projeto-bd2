@@ -30,7 +30,7 @@ public class ItemDAOImpl implements ItemDAO {
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, item.getDescricao());
-			statement.setString(2, item.getTipo());
+			statement.setString(2, item.getTipo().toString());
 			statement.setBigDecimal(3, item.getPrecoFornecedor());
 			statement.setBigDecimal(4, item.getPrecoLoja());
 			statement.setObject(5, item.getSqlDate());
@@ -94,7 +94,7 @@ public class ItemDAOImpl implements ItemDAO {
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, item.getDescricao());
-			statement.setString(2, item.getTipo());
+			statement.setString(2, item.getTipo().toString());
 			statement.setBigDecimal(3, item.getPrecoFornecedor());
 			statement.setBigDecimal(4, item.getPrecoLoja());
 			statement.setInt(5, item.getQuantidade());
@@ -120,7 +120,7 @@ public class ItemDAOImpl implements ItemDAO {
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, item.getDescricao());
-			statement.setString(2, item.getTipo());
+			statement.setString(2, item.getTipo().toString());
 			statement.setBigDecimal(3, item.getPrecoFornecedor());
 			statement.setDate(4, item.getSqlDate());
 			statement.setInt(5, item.getQuantidade());
@@ -187,7 +187,7 @@ public class ItemDAOImpl implements ItemDAO {
 	public Item alterarPrecoFornecedorPorCodigo(Item item) {
 		Connection connection = new ConnectionFactory().getConnection();
 		PreparedStatement statement = null;
-		String sql = SQLUtils.getExternalQuery("UPDATE_PRECO_FORNECEDOR_POR_CODIGO");
+		String sql = SQLUtils.getExternalQuery("UPDATE_ITEM_PRECO_FORNECEDOR_POR_CODIGO");
 		try {
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql);
@@ -211,7 +211,7 @@ public class ItemDAOImpl implements ItemDAO {
 	public Item alterarPrecoLojaPorCodigo(Item item) {
 		Connection connection = new ConnectionFactory().getConnection();
 		PreparedStatement statement = null;
-		String sql = SQLUtils.getExternalQuery("UPDATE_PRECO_LOJA_POR_CODIGO");
+		String sql = SQLUtils.getExternalQuery("UPDATE_ITEM_PRECO_LOJA_POR_CODIGO");
 		try {
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql);
@@ -235,7 +235,7 @@ public class ItemDAOImpl implements ItemDAO {
 	public Item alterarPrecoLojaEPrecoFornecedorPorCodigo(Item item) {
 		Connection connection = new ConnectionFactory().getConnection();
 		PreparedStatement statement = null;
-		String sql = SQLUtils.getExternalQuery("UPDATE_PRECO_LOJA_E_FORNECEDOR_POR_CODIGO");
+		String sql = SQLUtils.getExternalQuery("UPDATE_ITEM_PRECO_LOJA_E_FORNECEDOR_POR_CODIGO");
 		try {
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql);
@@ -260,12 +260,12 @@ public class ItemDAOImpl implements ItemDAO {
 	public Item alterarDescricaoETipoPorCodigo(Item item) {
 		Connection connection = new ConnectionFactory().getConnection();
 		PreparedStatement statement = null;
-		String sql = SQLUtils.getExternalQuery("UPDATE_DESCRICAO_E_TIPO_POR_CODIGO");
+		String sql = SQLUtils.getExternalQuery("UPDATE_ITEM_DESCRICAO_E_TIPO_POR_CODIGO");
 		try {
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, item.getDescricao());
-			statement.setString(2, item.getTipo());
+			statement.setString(2, item.getTipo().toString());
 			statement.setLong(3, item.getCodigo());
 			statement.execute();
 			connection.commit();

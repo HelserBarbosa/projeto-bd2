@@ -17,20 +17,24 @@
       "query": "DELETE FROM item WHERE codigo = ?"
     },
     {
-      "key": "UPDATE_PRECO_FORNECEDOR_POR_CODIGO",
+      "key": "UPDATE_ITEM_PRECO_FORNECEDOR_POR_CODIGO",
       "query": "UPDATE item SET preco_fornecedor = ? where codigo = ?"
     },
     {
-      "key": "UPDATE_PRECO_LOJA_POR_CODIGO",
+      "key": "UPDATE_ITEM_PRECO_LOJA_POR_CODIGO",
       "query": "UPDATE item SET preco_loja = ? where codigo = ?"
     },
     {
-      "key": "UPDATE_PRECO_LOJA_E_FORNECEDOR_POR_CODIGO",
+      "key": "UPDATE_ITEM_PRECO_LOJA_E_FORNECEDOR_POR_CODIGO",
       "query": "UPDATE item SET preco_loja = ?, preco_fornecedor = ? where codigo = ?"
     },
     {
-      "key": "UPDATE_DESCRICAO_E_TIPO_POR_CODIGO",
+      "key": "UPDATE_ITEM_DESCRICAO_E_TIPO_POR_CODIGO",
       "query": "UPDATE item SET descricao = ?, tipo = ? where codigo = ?"
+    },
+    {
+      "key": "INSERIR_NOVA_VENDA_ANIMAL",
+      "query": "insert into venda_item (item_cod, mat_func, dia, mes, ano, commisao_item, desconto, valor_final) values (?, ?, ?, ?, ?, ?, ?, ?)"
     }
   ]
 }

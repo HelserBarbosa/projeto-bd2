@@ -13,6 +13,8 @@ import br.com.unifacisa.projetobd2.exceptions.PetShopConnectionException;
 
 public class JSONUtils {
 
+	private JSONUtils() { }
+
 	public static QueryObject readJson(String key) {
 		Gson gson = new Gson();
 		try (InputStream is = new FileInputStream("src/main/resources/mapped-queries.json")) {
