@@ -7,9 +7,9 @@ public class VendaItem {
     private Long notaFiscal;
     private Long iteCod;
     private Long matFunc;
-    private String dia;
-    private String mes;
-    private String ano;
+    private Integer dia;
+    private Integer mes;
+    private Integer ano;
     private BigDecimal comissaItem;
     private BigDecimal desconto;
     private BigDecimal valoFinal;
@@ -38,31 +38,32 @@ public class VendaItem {
         this.matFunc = matFunc;
     }
 
-    public String getDia() {
-        return dia;
-    }
 
-    public void setDia(String dia) {
-        this.dia = dia;
-    }
+    public Integer getDia() {
+		return dia;
+	}
 
-    public String getMes() {
-        return mes;
-    }
+	public void setDia(Integer dia) {
+		this.dia = dia;
+	}
 
-    public void setMes(String mes) {
-        this.mes = mes;
-    }
+	public Integer getMes() {
+		return mes;
+	}
 
-    public String getAno() {
-        return ano;
-    }
+	public void setMes(Integer mes) {
+		this.mes = mes;
+	}
 
-    public void setAno(String ano) {
-        this.ano = ano;
-    }
+	public Integer getAno() {
+		return ano;
+	}
 
-    public BigDecimal getComissaItem() {
+	public void setAno(Integer ano) {
+		this.ano = ano;
+	}
+
+	public BigDecimal getComissaItem() {
         return comissaItem;
     }
 
