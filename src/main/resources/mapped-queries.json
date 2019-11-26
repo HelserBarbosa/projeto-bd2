@@ -1,44 +1,88 @@
 {
-  "queries": [
-    {
-      "key": "INSERIR_NOVO_ITEM",
-      "query": "INSERT INTO item (descricao, tipo, preco_fornecedor, preco_loja, validade, quantidade) VALUES (?, ?, ?, ?, ?, ?)"
-    },
-    {
-      "key": "INSERIR_NOVO_ITEM_SEM_VALIDADE",
-      "query": "INSERT INTO item (descricao, tipo, preco_fornecedor, preco_loja, quantidade) VALUES(?, ?, ?, ?, ?)"
-    },
-    {
-      "key": "INSERIR_NOVO_ITEM_SEM_PRECO_LOJA",
-      "query": "INSERT INTO item (descricao, tipo, preco_fornecedor, validade, quantidade) VALUES(?, ?, ?, ?, ?)"
-    },
-    {
-      "key": "DELETAR_ITEM_PELO_CODIGO",
-      "query": "DELETE FROM item WHERE codigo = ?"
-    },
-    {
-      "key": "UPDATE_ITEM_PRECO_FORNECEDOR_POR_CODIGO",
-      "query": "UPDATE item SET preco_fornecedor = ? where codigo = ?"
-    },
-    {
-      "key": "UPDATE_ITEM_PRECO_LOJA_POR_CODIGO",
-      "query": "UPDATE item SET preco_loja = ? where codigo = ?"
-    },
-    {
-      "key": "UPDATE_ITEM_PRECO_LOJA_E_FORNECEDOR_POR_CODIGO",
-      "query": "UPDATE item SET preco_loja = ?, preco_fornecedor = ? where codigo = ?"
-    },
-    {
-      "key": "UPDATE_ITEM_DESCRICAO_E_TIPO_POR_CODIGO",
-      "query": "UPDATE item SET descricao = ?, tipo = ? where codigo = ?"
-    },
-    {
-      "key": "CRIAR_FUNCIONARIO",
-      "query": "insert into funcionario (nome, cpf, endereco, telefone, funcao, dat_nasc, dat_adm) values (?, ?, ?, ?, ?, ?, ?)"
-    },
-    {
-      "key": "INSERIR_NOVA_VENDA_ANIMAL",
-      "query": "insert into venda_item (item_cod, mat_func, dia, mes, ano, commisao_item, desconto, valor_final) values (?, ?, ?, ?, ?, ?, ?, ?)"
-    },
-  ]
+	"queries": [
+		{
+			"key": "INSERIR_NOVO_ITEM",
+			"query": "INSERT INTO item (descricao, tipo, preco_fornecedor, preco_loja, validade, quantidade) VALUES (?, ?, ?, ?, ?, ?)"
+		},
+		{
+			"key": "INSERIR_NOVO_ITEM_SEM_VALIDADE",
+			"query": "INSERT INTO item (descricao, tipo, preco_fornecedor, preco_loja, quantidade) VALUES(?, ?, ?, ?, ?)"
+		},
+		{
+			"key": "INSERIR_NOVO_ITEM_SEM_PRECO_LOJA",
+			"query": "INSERT INTO item (descricao, tipo, preco_fornecedor, validade, quantidade) VALUES(?, ?, ?, ?, ?)"
+		},
+		{
+			"key": "DELETAR_ITEM_PELO_CODIGO",
+			"query": "DELETE FROM item WHERE codigo = ?"
+		},
+		{
+			"key": "UPDATE_ITEM_PRECO_FORNECEDOR_POR_CODIGO",
+			"query": "UPDATE item SET preco_fornecedor = ? where codigo = ?"
+		},
+		{
+			"key": "UPDATE_ITEM_PRECO_LOJA_POR_CODIGO",
+			"query": "UPDATE item SET preco_loja = ? where codigo = ?"
+		},
+		{
+			"key": "UPDATE_ITEM_PRECO_LOJA_E_FORNECEDOR_POR_CODIGO",
+			"query": "UPDATE item SET preco_loja = ?, preco_fornecedor = ? where codigo = ?"
+		},
+		{
+			"key": "UPDATE_ITEM_DESCRICAO_E_TIPO_POR_CODIGO",
+			"query": "UPDATE item SET descricao = ?, tipo = ? where codigo = ?"
+		},
+		{
+			"key": "CRIAR_FUNCIONARIO",
+			"query": "insert into funcionario (nome, cpf, endereco, telefone, funcao,dat_nasc, dat_adm) values (?, ?, ?, ?, ?, ?)"
+		},
+		{
+			"key": "INSERIR_NOVA_VENDA_ANIMAL",
+			"query": "insert into venda_item (item_cod, mat_func, dia, mes, ano, commisao_item, desconto, valor_final) values (?, ?, ?, ?, ?, ?, ?, ?)"
+		},
+		{
+			"key": "INSERIR_FUNCIONARIO_SEM_SALARIO",
+			"query": "insert into funcionario (nome, cpf, endereco, telefone,da_nasc, dat_adm) values (?, ?, ?, ?, ?, ?)"
+		},
+		{
+			"key": "INSERIR_FUNCIONARIO_SEM_TELEFONE",
+			"query": "insert into funcionario (nome, cpf, endereco, salario ,da_nasc, dat_adm) values (?, ?, ?, ?, ?, ?)"
+		},
+		{
+			"key": "UPDATE_NOME_POR_MATRICULA",
+			"query": "UPDATE funcionario set nome=? where matricula=?"
+		},
+		{
+			"key": "UPDATE_NOME_POR_CPF",
+			"query": "UPDATE funcionario set nome=? where cpf=?"
+		},
+		{
+			"key": "UPDATE_ENDERECO_POR_MATRICULA",
+			"query": "UPDATE funcionario set endereco=? where matricula=?"
+		},
+		{
+			"key": "UPDATE_FUNCAO_POR_MATRICULA",
+			"query": "UPDATE funcionario set funcao=? where matricula=?"
+		},
+		{
+			"key": "UPDATE_DEMISSAO_POR_MATRICULA",
+			"query": "UPDATE funcionario set dtDemi=? where matricula=?"
+		},
+		{
+			"key": "DELECAO_POR_MATRICULA",
+			"query": "DELETE funcionario WHERE matricula=?"
+		},
+		{
+			"key": "CONSULTA_ANIMAL_LUCRO",
+			"query": "SELECT nome,(animal.preco_venda - animal.preco_compra) as lucro FROM animal"
+		},
+		{
+			"key": "CONSULTA_FUNCIONARIO",
+			"query": "SELECT * FROM funcionario"
+		},
+		{
+			"key": "CONSULTA_FUNCIONARIO_POR_DESCRICAO",
+			"query": "SELECT * FROM funcionario WHERE descricao=?"
+		}
+	]
 }

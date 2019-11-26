@@ -11,9 +11,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.unifacisa.projetobd2.dtos.ConsultaLucroDTO;
 import br.com.unifacisa.projetobd2.exceptions.PetShopConnectionException;
 import br.com.unifacisa.projetobd2.models.Animal;
 import br.com.unifacisa.projetobd2.util.ConnectionFactory;
+import br.com.unifacisa.projetobd2.util.SQLUtils;
 
 @Repository
 public class AnimalDAO {
@@ -510,6 +512,31 @@ public class AnimalDAO {
 			throw new PetShopConnectionException(e.getMessage());
 		}
 
+	}
+	
+	public List<ConsultaLucroDTO> consultaLucro(){
+		Connection connection = new ConnectionFactory().getConnection();
+		try {
+
+
+			PreparedStatement statement = connection.prepareStatement(SQLUtils.getExternalQuery("CONSULTA_ANIMAL_LUCRO"));
+
+			ResultSet resultSet = statement.executeQuery();
+
+			List<ConsultaLucroDTO> resultado = new ArrayList<>();
+			while(resultSet.next()) {
+				
+				ConsultaLucroDTO consultaLucro = new ConsultaLucroDTO();
+				consultaLucro.setNome(resultSet.getString("nome"));
+				consultaLucro.setLucro(resultSet.getBigDecimal("lucro"));
+				
+				resultado.add(consultaLucro);
+				
+			}
+			return resultado;
+		} catch (SQLException e) {
+			throw new PetShopConnectionException(e.getMessage());
+		}
 	}
 
 	private void mapper(ResultSet resultSet, List<Animal> resultado) throws SQLException {
