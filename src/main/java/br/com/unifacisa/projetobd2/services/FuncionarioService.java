@@ -61,7 +61,7 @@ public class FuncionarioService {
 		return dao.buscarFuncionarioPorMatricula(matricula);
 	}
 	
-	List<Funcionario> listarPorNome(String nome){
+	public List<Funcionario> listarPorNome(String nome){
 		return dao.listarPorNome(nome);
 	}
 }
