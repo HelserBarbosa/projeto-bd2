@@ -34,7 +34,7 @@
     },
     {
       "key": "CRIAR_FUNCIONARIO",
-      "query": "insert into funcionario (nome, cpf, endereco, telefone, salario, da_nasc, dat_adm) values (?, ?, ?, ?, ?, ?, ?)"
+      "query": "insert into funcionario (nome, cpf, endereco, telefone, funcao,dat_nasc, dat_adm) values (?, ?, ?, ?, ?, ?)"
     },
     {
       "key": "INSERIR_NOVA_VENDA_ANIMAL",
