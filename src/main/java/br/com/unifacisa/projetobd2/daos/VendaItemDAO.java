@@ -1,5 +1,7 @@
 package br.com.unifacisa.projetobd2.daos;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import br.com.unifacisa.projetobd2.models.VendaItem;
@@ -20,6 +22,12 @@ public interface VendaItemDAO {
 	VendaItem updateDesconto(VendaItem vendaItem);
 
 	VendaItem deletePorNotaFiscal(VendaItem vendaItem);
+
+	List<VendaItem> listar();
+
+	List<VendaItem> listarPorDescricaoItem(String nome);
+
+	List<VendaItem> listarPorDescricaoItem(Integer dia, Integer mes, Integer ano, String nome);
 	
 
 }
