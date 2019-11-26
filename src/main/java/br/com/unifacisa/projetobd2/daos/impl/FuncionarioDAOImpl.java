@@ -81,7 +81,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
 	public Funcionario criarFuncionarioSemSalario(Funcionario funcionario) {
 		Connection conn = getConnection();
-		String sql = "insert into funcionario (nome, cpf, endereco, telefone,da_nasc, dat_adm) values (?, ?, ?, ?, ?, ?)";
+		String sql = "insert into funcionario (nome, cpf, endereco, telefone, funcao, dat_nasc, dat_adm) values (?, ?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = createStatement(conn, sql)) {
 			statement.setString(1, funcionario.getNome());
 			statement.setString(2, funcionario.getCpf());
@@ -91,6 +91,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			statement.setDate(6, Date.valueOf(funcionario.getDtNasc()));
 			statement.setDate(7, Date.valueOf(funcionario.getDtAdm()));
 			statement.execute();
+			conn.commit();
 			setFuncionarioKey(statement, funcionario);
 			return funcionario;
 		} catch (SQLException e) {
@@ -111,6 +112,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			statement.setDate(5, Date.valueOf(funcionario.getDtNasc()));
 			statement.setDate(6, Date.valueOf(funcionario.getDtAdm()));
 			statement.execute();
+			conn.commit();
 			setFuncionarioKey(statement, funcionario);
 			return funcionario;
 		} catch (SQLException e) {
@@ -127,6 +129,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			statement.setString(1, funcionario.getNome());
 			statement.setLong(2, funcionario.getMatricula());
 			statement.execute();
+			conn.commit();
 			setFuncionarioKey(statement, funcionario);
 			return funcionario;
 		} catch (SQLException e) {
@@ -143,6 +146,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			statement.setString(1, funcionario.getNome());
 			statement.setString(2, funcionario.getCpf());
 			statement.execute();
+			conn.commit();
 			setFuncionarioKey(statement, funcionario);
 			return funcionario;
 		} catch (SQLException e) {
@@ -159,6 +163,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			statement.setString(1, funcionario.getEndereco());
 			statement.setLong(2, funcionario.getMatricula());
 			statement.execute();
+			conn.commit();
 			setFuncionarioKey(statement, funcionario);
 			return funcionario;
 		} catch (SQLException e) {
@@ -175,6 +180,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			statement.setString(1, funcionario.getFuncao());
 			statement.setLong(2, funcionario.getMatricula());
 			statement.execute();
+			conn.commit();
 			setFuncionarioKey(statement, funcionario);
 			return funcionario;
 		} catch (SQLException e) {
@@ -191,6 +197,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			statement.setDate(1, Date.valueOf(funcionario.getDtDemi()));
 			statement.setLong(2, funcionario.getMatricula());
 			statement.execute();
+			conn.commit();
 			setFuncionarioKey(statement, funcionario);
 			return funcionario;
 		} catch (SQLException e) {
@@ -206,6 +213,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 		try (PreparedStatement statement = createStatement(conn, sql)) {
 			statement.setLong(1, funcionario.getMatricula());
 			statement.execute();
+			conn.commit();
 			setFuncionarioKey(statement, funcionario);
 			return funcionario;
 		} catch (SQLException e) {
@@ -286,7 +294,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 		func.setMatricula(rs.getLong("matricula"));
 		func.setCpf(rs.getString("cpf"));
 		func.setDtAdm(rs.getDate("dat_adm").toLocalDate());
-		func.setDtDemi(rs.getDate("dat_demissao").toLocalDate());
+		func.setDtDemi(rs.getDate("dat_demissao") == null? null : rs.getDate("dat_demissao").toLocalDate());
 		func.setDtNasc(rs.getDate("dat_nasc").toLocalDate());
 		func.setEndereço(rs.getString("endereco"));
 		func.setFuncao(rs.getString("funcao"));
