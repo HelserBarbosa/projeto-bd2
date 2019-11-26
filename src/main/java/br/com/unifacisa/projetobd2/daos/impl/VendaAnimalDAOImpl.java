@@ -262,11 +262,11 @@ public class VendaAnimalDAOImpl implements VendaAnimalDAO {
 		a.setTipo(rs.getString("tipo"));
 		a.setPeso(rs.getBigDecimal("peso"));
 		a.setAltura(rs.getBigDecimal("altura"));
-		a.setDtUltMed(rs.getDate("dat_ult_med"));
+		a.setDtUltMed(rs.getDate("dat_ult_med").toLocalDate());
 		a.setRaca(rs.getString("raca"));
 		a.setPrecoCompra(rs.getBigDecimal("preco_compra"));
 		a.setPrecoVenda(rs.getBigDecimal("preco_venda"));
-		a.setDtNasc(rs.getDate("dat_nasc"));
+		a.setDtNasc(rs.getDate("dat_nasc").toLocalDate());
 		va.setAnimal(a);
 		va.setFuncionario(f);
 		va.setDia(rs.getInt("dia"));
