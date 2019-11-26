@@ -26,7 +26,7 @@ public interface ItemDAO {
 
 	List<Item> buscarTodosOsRegistros();
 
-	List<Item> buscarItensPorDescricao(String tipo);
+	List<Item> buscarItensPorDescricao(String descricao);
 
 	List<Item> buscarItensPorTipo(String tipo);
 
