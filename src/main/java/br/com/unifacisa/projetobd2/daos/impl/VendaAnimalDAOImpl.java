@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.unifacisa.projetobd2.daos.VendaAnimalDAO;
+import br.com.unifacisa.projetobd2.dtos.TotalizacaoVendaAnimalDTO;
 import br.com.unifacisa.projetobd2.exceptions.PetShopConnectionException;
 import br.com.unifacisa.projetobd2.models.Animal;
 import br.com.unifacisa.projetobd2.models.Funcionario;
@@ -29,10 +30,10 @@ public class VendaAnimalDAOImpl implements VendaAnimalDAO {
 //
 //		animal.setAltura(new BigDecimal("15"));
 //		animal.setPeso(new BigDecimal("15"));
-//		animal.setPrecoCompra(new BigDecimal("150"));
+//		animal.setPrecoCompra(new BigDecimal("100"));
 //		animal.setPrecoCompra(new BigDecimal("130"));
 //		animal.setRaca("raca");
-//		animal.setTipo("tipo");
+//		animal.setTipo("tipo 2");
 //		animalDao.inserirAnimal(animal);
 //
 //		Funcionario funcionario = new Funcionario();
@@ -53,7 +54,6 @@ public class VendaAnimalDAOImpl implements VendaAnimalDAO {
 //		va.setMes(03);
 //		va.setDia(14);
 //		vdao.insertSemInformarDesconto(va);
-//		vdao.deleteVendaPorNotaFiscal(va.getNotaFiscal());
 //	}
 
 	@Override
@@ -213,12 +213,6 @@ public class VendaAnimalDAOImpl implements VendaAnimalDAO {
 			PetShopConnectionException.handlePetShopConnectionException(e);
 		}
 		return false;
-	}
-
-	public static void main(String[] args) {
-		VendaAnimalDAO dao = new VendaAnimalDAOImpl();
-		List<VendaAnimal> vendas = dao.listarVendasPorNomeVendedor("teste nome");
-		vendas.forEach(System.out::println);
 	}
 
 	@Override
@@ -390,6 +384,92 @@ public class VendaAnimalDAOImpl implements VendaAnimalDAO {
 		} catch (SQLException e) {
 			rollback(connection, e);
 			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
+		return null;
+	}
+
+	@Override
+	public List<TotalizacaoVendaAnimalDTO> buscarTotalizacaoVendaAnimal() {
+		Connection connection = getConnection();
+		ResultSet rs = null;
+		PreparedStatement statement = null;
+		StringBuilder sql = new StringBuilder(
+				"SELECT sum(valor_final) as totalizacao, fu.matricula, an.tipo FROM venda_animal va \n");
+		sql.append("INNER JOIN funcionario fu ON va.mat_func = fu.matricula\n");
+		sql.append("INNER JOIN animal an ON va.reg_animal = an.registro\n");
+		sql.append("GROUP BY (fu.matricula, fu.matricula, an.tipo);");
+		try {
+			statement = createStatement(connection, sql.toString());
+			statement.execute();
+			rs = statement.getResultSet();
+			List<TotalizacaoVendaAnimalDTO> totalizacoes = new ArrayList<>();
+			while (rs.next()) {
+				TotalizacaoVendaAnimalDTO dto = new TotalizacaoVendaAnimalDTO();
+				dto.setMatricula(rs.getLong("matricula"));
+				dto.setTipo(rs.getString("tipo"));
+				dto.setTotalizacao(rs.getBigDecimal("totalizacao"));
+				totalizacoes.add(dto);
+			}
+			return totalizacoes;
+		} catch (SQLException e) {
+			rollback(connection, e);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		} finally {
+			try {
+				rs.close();
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				PetShopConnectionException.handlePetShopConnectionException(e);
+			}
+		}
+		return null;
+	}
+
+	public static void main(String[] args) {
+		VendaAnimalDAO dao = new VendaAnimalDAOImpl();
+		System.out.println(dao.buscarTotalizacaoVendaAnimalFiltradaPorFuncionarioMesAno(17L, 3, 2019));
+	}
+
+	@Override
+	public List<TotalizacaoVendaAnimalDTO> buscarTotalizacaoVendaAnimalFiltradaPorFuncionarioMesAno(
+			Long matriculaFuncionario, int mes, int ano) {
+		Connection connection = getConnection();
+		ResultSet rs = null;
+		PreparedStatement statement = null;
+		StringBuilder sql = new StringBuilder(
+				"SELECT sum(valor_final) as totalizacao, fu.matricula, an.tipo FROM venda_animal va \n");
+		sql.append("INNER JOIN funcionario fu ON va.mat_func = fu.matricula\n");
+		sql.append("INNER JOIN animal an ON va.reg_animal = an.registro\n");
+		sql.append("WHERE fu.matricula = ? AND va.mes = ? AND va.ano = ?\n");
+		sql.append("GROUP BY (fu.matricula, fu.matricula, an.tipo);");
+		try {
+			statement = createStatement(connection, sql.toString());
+			statement.setLong(1, matriculaFuncionario);
+			statement.setInt(2, mes);
+			statement.setInt(3, ano);
+			statement.execute();
+			rs = statement.getResultSet();
+			List<TotalizacaoVendaAnimalDTO> totalizacoes = new ArrayList<>();
+			while (rs.next()) {
+				TotalizacaoVendaAnimalDTO dto = new TotalizacaoVendaAnimalDTO();
+				dto.setMatricula(rs.getLong("matricula"));
+				dto.setTipo(rs.getString("tipo"));
+				dto.setTotalizacao(rs.getBigDecimal("totalizacao"));
+				totalizacoes.add(dto);
+			}
+			return totalizacoes;
+		} catch (SQLException e) {
+			rollback(connection, e);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		} finally {
+			try {
+				rs.close();
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				PetShopConnectionException.handlePetShopConnectionException(e);
+			}
 		}
 		return null;
 	}
