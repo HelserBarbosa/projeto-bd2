@@ -22,18 +22,6 @@ public class Funcionario {
 	private LocalDate dtAdm;
 	private String funcao;
 
-	public Date getSqlDtDemi() {
-		return Date.valueOf(dtDemi);
-	}
-
-	public Date getSqlDtNasc() {
-		return Date.valueOf(dtNasc);
-	}
-
-	public Date getSqlDtAdm() {
-		return Date.valueOf(dtAdm);
-	}
-
 	public Long getMatricula() {
 		return matricula;
 	}

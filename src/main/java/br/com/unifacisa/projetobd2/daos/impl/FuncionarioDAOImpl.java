@@ -1,6 +1,7 @@
 package br.com.unifacisa.projetobd2.daos.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -55,8 +56,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			statement.setString(3, funcionario.getEndereco());
 			statement.setString(4, funcionario.getTelefone());
 			statement.setString(5, funcionario.getFuncao());
-			statement.setDate(6, funcionario.getSqlDtNasc());
-			statement.setDate(7, funcionario.getSqlDtAdm());
+			statement.setDate(6, Date.valueOf(funcionario.getDtNasc()));
+			statement.setDate(7, Date.valueOf(funcionario.getDtAdm()));
 			statement.execute();
 			conn.commit();
 			setFuncionarioKey(statement, funcionario);
@@ -87,8 +88,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			statement.setString(3, funcionario.getEndereco());
 			statement.setString(4, funcionario.getTelefone());
 			statement.setString(5, funcionario.getFuncao());
-			statement.setDate(6, funcionario.getSqlDtNasc());
-			statement.setDate(7, funcionario.getSqlDtAdm());
+			statement.setDate(6, Date.valueOf(funcionario.getDtNasc()));
+			statement.setDate(7, Date.valueOf(funcionario.getDtAdm()));
 			statement.execute();
 			setFuncionarioKey(statement, funcionario);
 			return funcionario;
@@ -107,8 +108,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			statement.setString(2, funcionario.getCpf());
 			statement.setString(3, funcionario.getEndereco());
 			statement.setString(4, funcionario.getFuncao());
-			statement.setDate(5, funcionario.getSqlDtNasc());
-			statement.setDate(6, funcionario.getSqlDtAdm());
+			statement.setDate(5, Date.valueOf(funcionario.getDtNasc()));
+			statement.setDate(6, Date.valueOf(funcionario.getDtAdm()));
 			statement.execute();
 			setFuncionarioKey(statement, funcionario);
 			return funcionario;
@@ -187,7 +188,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 		Connection conn = getConnection();
 		String sql = "UPDATE funcionario set dtDemi=? where matricula=?";
 		try (PreparedStatement statement = createStatement(conn, sql)) {
-			statement.setDate(1, funcionario.getSqlDtDemi());
+			statement.setDate(1, Date.valueOf(funcionario.getDtDemi()));
 			statement.setLong(2, funcionario.getMatricula());
 			statement.execute();
 			setFuncionarioKey(statement, funcionario);
