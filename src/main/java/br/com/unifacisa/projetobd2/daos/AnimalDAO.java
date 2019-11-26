@@ -22,23 +22,23 @@ public class AnimalDAO {
 		PreparedStatement statement = null;
 		Connection connection = new ConnectionFactory().getConnection();
 		StringBuilder sql = new StringBuilder(
-				"INSERT INTO animal(registro, tipo, peso, altura, dat_ult_med, raca, preco_compra, preco_venda, dat_nasc)");
-		sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);");
+				"INSERT INTO animal(tipo, peso, altura, dat_ult_med, raca, preco_compra, preco_venda, dat_nasc)");
+		sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
 		try {
 			statement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
-			statement.setLong(1, animal.getRegistro());
-			statement.setString(2, animal.getTipo());
-			statement.setBigDecimal(3, animal.getPeso());
-			statement.setBigDecimal(4, animal.getAltura());
-			statement.setDate(5, animal.getDtUltMed());
-			statement.setString(6, animal.getRaca());
-			statement.setBigDecimal(7, animal.getPrecoCompra());
-			statement.setBigDecimal(8, animal.getPrecoVenda());
-			statement.setDate(9, animal.getDtNasc());
+			statement.setString(1, animal.getTipo());
+			statement.setBigDecimal(2, animal.getPeso());
+			statement.setBigDecimal(3, animal.getAltura());
+			statement.setDate(4, animal.getDtUltMed());
+			statement.setString(5, animal.getRaca());
+			statement.setBigDecimal(6, animal.getPrecoCompra());
+			statement.setBigDecimal(7, animal.getPrecoVenda());
+			statement.setDate(8, animal.getDtNasc());
 			statement.execute();
+			setGeneratedKey(animal, statement);
 			statement.close();
 			connection.close();
-			return setGeneratedKey(animal, statement);
+			return animal;
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}

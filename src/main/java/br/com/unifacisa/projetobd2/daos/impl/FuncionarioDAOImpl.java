@@ -18,7 +18,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
         funcionario.setDtAdm(LocalDate.of(2015, 2, 5));
         funcionario.setDtNasc(LocalDate.of(1989, 5, 25));
         funcionario.setEndereço("rua rua rua rua");
-        funcionario.setFuncao("adm");
+        funcionario.setFuncao("atendente");
         funcionario.setNome("nome");
         funcionario.setTelefone("333333333");
         dao.criarFuncionario(funcionario);
