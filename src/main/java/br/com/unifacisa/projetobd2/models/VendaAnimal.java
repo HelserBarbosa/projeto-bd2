@@ -5,8 +5,6 @@ import java.math.BigDecimal;
 public class VendaAnimal {
 
 	private Long notaFiscal;
-	private Long idAnimal;
-	private Long idFuncionario;
 	private Animal animal;
 	private Funcionario funcionario;
 	private Integer dia;
@@ -15,22 +13,6 @@ public class VendaAnimal {
 	private BigDecimal comissao;
 	private BigDecimal desconto;
 	private BigDecimal valorFinal;
-	
-	public Long getIdAnimal() {
-		return idAnimal;
-	}
-
-	public void setIdAnimal(Long idAnimal) {
-		this.idAnimal = idAnimal;
-	}
-
-	public Long getIdFuncionario() {
-		return idFuncionario;
-	}
-
-	public void setIdFuncionario(Long idFuncionario) {
-		this.idFuncionario = idFuncionario;
-	}
 
 	public Integer getDia() {
 		return dia;
