@@ -290,7 +290,7 @@ public class AnimalDAO {
 
 		try {
 
-			StringBuilder sql = new StringBuilder("UPDATE animal SET preco_compra=?,");
+			StringBuilder sql = new StringBuilder("UPDATE animal SET preco_compra=? ");
 			sql.append("WHERE registro=?;");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
@@ -354,7 +354,7 @@ public class AnimalDAO {
 
 		try {
 
-			StringBuilder sql = new StringBuilder("UPDATE animal SET raca=?,tipo=?");
+			StringBuilder sql = new StringBuilder("UPDATE animal SET raca=?");
 			sql.append("WHERE registro=?;");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
