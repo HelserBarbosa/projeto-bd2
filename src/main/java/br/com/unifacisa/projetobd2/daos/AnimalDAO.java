@@ -188,11 +188,10 @@ public class AnimalDAO {
 			statement.setString(6, animal.getRaca());
 			statement.setBigDecimal(7, animal.getPrecoCompra());
 			statement.setBigDecimal(8, animal.getPrecoVenda());
-
+			setGeneratedKey(animal, statement);
 			statement.execute();
-
 			connection.close();
-			return setGeneratedKey(animal, statement);
+			return animal;
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}
