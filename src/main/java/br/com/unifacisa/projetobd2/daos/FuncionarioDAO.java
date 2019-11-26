@@ -1,5 +1,7 @@
 package br.com.unifacisa.projetobd2.daos;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import br.com.unifacisa.projetobd2.models.Funcionario;
@@ -24,4 +26,8 @@ public interface FuncionarioDAO {
 	Funcionario updateDemisaoPorMatricula(Funcionario funcionario);
 	
 	Funcionario demisaoPorMatricula(Funcionario funcionario);
+	
+	List<Funcionario> listar();
+	
+	List<Funcionario> listarPorDescricao(String descricao);
 }

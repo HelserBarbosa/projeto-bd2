@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.unifacisa.projetobd2.daos.FuncionarioDAO;
 import br.com.unifacisa.projetobd2.exceptions.PetShopConnectionException;
@@ -245,7 +247,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 		}
 		return null;
 	}
-	
+
 	public Funcionario updateDemisaoPorMatricula(Funcionario funcionario) {
 		Connection conn = getConnection();
 		try (PreparedStatement statement = createStatement(conn,
@@ -261,11 +263,10 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 		}
 		return null;
 	}
-	
+
 	public Funcionario demisaoPorMatricula(Funcionario funcionario) {
 		Connection conn = getConnection();
-		try (PreparedStatement statement = createStatement(conn,
-				SQLUtils.getExternalQuery("DELECAO_POR_MATRICULA"))) {
+		try (PreparedStatement statement = createStatement(conn, SQLUtils.getExternalQuery("DELECAO_POR_MATRICULA"))) {
 			statement.setLong(1, funcionario.getMatricula());
 			statement.execute();
 			setFuncionarioKey(statement, funcionario);
@@ -274,6 +275,59 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			rollback(conn, e);
 			PetShopConnectionException.handlePetShopConnectionException(e);
 		}
+		return null;
+	}
+
+	public List<Funcionario> listar() {
+		Connection conn = getConnection();
+		try {
+			PreparedStatement statement = createStatement(conn, SQLUtils.getExternalQuery("CONSULTA_FUNCIONARIO"));
+
+			ResultSet resultado = statement.executeQuery();
+			
+			List<Funcionario> funcionarios = new ArrayList<>();
+			
+			while(resultado.next()) {
+				Funcionario func = new Funcionario();
+				
+				func.setMatricula(resultado.getLong("matricula"));
+				
+				funcionarios.add(func);
+			}
+			
+			return funcionarios;
+		} catch (SQLException e) {
+			rollback(conn, e);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
+
+		return null;
+	}
+	
+	public List<Funcionario> listarPorDescricao(String descricao) {
+		Connection conn = getConnection();
+		try {
+			PreparedStatement statement = createStatement(conn, SQLUtils.getExternalQuery("CONSULTA_FUNCIONARIO_POR_DESCRICAO"));
+			statement.setString(1, descricao);
+			ResultSet resultado = statement.executeQuery();
+			
+			List<Funcionario> funcionarios = new ArrayList<>();
+			
+			while(resultado.next()) {
+				
+				Funcionario func = new Funcionario();
+				
+				func.setMatricula(resultado.getLong("matricula"));
+				
+				funcionarios.add(func);
+			}
+			
+			return funcionarios;
+		} catch (SQLException e) {
+			rollback(conn, e);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
+
 		return null;
 	}
 }
