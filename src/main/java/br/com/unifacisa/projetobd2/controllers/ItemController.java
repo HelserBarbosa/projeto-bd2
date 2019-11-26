@@ -76,8 +76,8 @@ public class ItemController {
 	}
 
 	@GetMapping("totalizacao")
-	public ResponseEntity<TotalizacaoDTO> buscarTotalizacao() {
-		return new ResponseEntity<TotalizacaoDTO>(itemService.buscarTotalizacao(), HttpStatus.OK);
+	public ResponseEntity<List<TotalizacaoDTO>> buscarTotalizacao() {
+		return new ResponseEntity<List<TotalizacaoDTO>>(itemService.buscarTotalizacao(), HttpStatus.OK);
 	}
 
 	@GetMapping("lucro")

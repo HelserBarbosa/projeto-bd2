@@ -63,7 +63,7 @@ public class ItemService {
 		return dao.buscarItensPorTipo(tipo);
 	}
 
-	public TotalizacaoDTO buscarTotalizacao() {
+	public List<TotalizacaoDTO> buscarTotalizacao() {
 		return dao.buscarTotalizacao();
 	}
 

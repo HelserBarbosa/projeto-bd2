@@ -6,7 +6,7 @@ public class LucroDTO {
 
 	private BigDecimal lucro;
 
-	private String nomeItem;
+	private Integer codigo;
 
 	public BigDecimal getLucro() {
 		return lucro;
@@ -16,17 +16,17 @@ public class LucroDTO {
 		this.lucro = lucro;
 	}
 
-	public String getNomeItem() {
-		return nomeItem;
+	public Integer getCodigo() {
+		return codigo;
 	}
 
-	public void setNomeItem(String nomeItem) {
-		this.nomeItem = nomeItem;
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
 	}
 
 	@Override
 	public String toString() {
-		return "LucroDTO [lucro=" + lucro + ", nomeItem=" + nomeItem + "]";
+		return "LucroDTO [lucro=" + lucro + ", nomeItem=" + codigo + "]";
 	}
 
 }

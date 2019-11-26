@@ -30,7 +30,7 @@ public interface ItemDAO {
 
 	List<Item> buscarItensPorTipo(String tipo);
 
-	TotalizacaoDTO buscarTotalizacao();
+	List<TotalizacaoDTO> buscarTotalizacao();
 	
 	List<LucroDTO> buscarLucroParaCadaItem();
 
