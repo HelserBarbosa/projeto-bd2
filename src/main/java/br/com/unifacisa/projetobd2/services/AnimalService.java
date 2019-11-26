@@ -40,7 +40,7 @@ public class AnimalService {
 		return dao.inserirAnimalSemDataNasc(animal);
 	}
 	public void updateAnimalPesoAlturaDtaMed(Animal animal) {
-		dao.updateAnimalAlturaDtaMed(animal);
+		dao.updateAnimalPesoAlturaDtaMed(animal);
 	}
 	
 	public void updateAnimalPrecoCompra(Animal animal) {
