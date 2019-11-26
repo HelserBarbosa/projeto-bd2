@@ -3,12 +3,10 @@ package br.com.unifacisa.projetobd2.daos;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import br.com.unifacisa.projetobd2.dtos.TotalizacaoVendaAnimalDTO;
 import br.com.unifacisa.projetobd2.models.VendaAnimal;
 
-@Repository
+
 public interface VendaAnimalDAO {
 
 	VendaAnimal insertComTodosOsDados(VendaAnimal vendaAnimal);

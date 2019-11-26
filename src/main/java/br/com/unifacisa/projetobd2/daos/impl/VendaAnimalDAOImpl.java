@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import br.com.unifacisa.projetobd2.daos.VendaAnimalDAO;
 import br.com.unifacisa.projetobd2.dtos.TotalizacaoVendaAnimalDTO;
 import br.com.unifacisa.projetobd2.exceptions.PetShopConnectionException;
@@ -19,6 +21,7 @@ import br.com.unifacisa.projetobd2.models.Funcionario;
 import br.com.unifacisa.projetobd2.models.VendaAnimal;
 import br.com.unifacisa.projetobd2.util.ConnectionFactory;
 
+@Repository
 public class VendaAnimalDAOImpl implements VendaAnimalDAO {
 
 //	public static void main(String[] args) {

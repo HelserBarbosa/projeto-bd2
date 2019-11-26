@@ -8,11 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import br.com.unifacisa.projetobd2.daos.VendaItemDAO;
 import br.com.unifacisa.projetobd2.exceptions.PetShopConnectionException;
 import br.com.unifacisa.projetobd2.models.VendaItem;
 import br.com.unifacisa.projetobd2.util.ConnectionFactory;
 
+@Repository
 public class VendaItemDAOImpl implements VendaItemDAO {
 
 	private PreparedStatement createStatement(Connection connection, String query) {

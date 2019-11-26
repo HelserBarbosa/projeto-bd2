@@ -5,29 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
 
 import br.com.unifacisa.projetobd2.daos.FuncionarioDAO;
 import br.com.unifacisa.projetobd2.exceptions.PetShopConnectionException;
 import br.com.unifacisa.projetobd2.models.Funcionario;
 import br.com.unifacisa.projetobd2.util.ConnectionFactory;
 
+@Repository
 public class FuncionarioDAOImpl implements FuncionarioDAO {
-
-	public static void main(String[] args) {
-		Funcionario funcionario = new Funcionario();
-		FuncionarioDAO dao = new FuncionarioDAOImpl();
-		funcionario.setCpf("12345678910");
-		funcionario.setDtAdm(LocalDate.of(2015, 2, 5));
-		funcionario.setDtNasc(LocalDate.of(1989, 5, 25));
-		funcionario.setEndereço("rua rua rua rua");
-		funcionario.setFuncao("adm");
-		funcionario.setNome("nome");
-		funcionario.setTelefone("333333333");
-		dao.criarFuncionario(funcionario);
-	}
 
 	private Connection getConnection() {
 		Connection conn = new ConnectionFactory().getConnection();

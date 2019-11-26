@@ -70,7 +70,7 @@ public class ItemController {
 		return new ResponseEntity<List<Item>>(itemService.buscarItensPorDescricao(descricao), HttpStatus.OK);
 	}
 
-	@GetMapping("param/descricao/{descricao}")
+	@GetMapping("param/tipo/{descricao}")
 	public ResponseEntity<List<Item>> buscarItensPorTipo(@RequestParam String tipo) {
 		return new ResponseEntity<List<Item>>(itemService.buscarItensPorTipo(tipo), HttpStatus.OK);
 	}
