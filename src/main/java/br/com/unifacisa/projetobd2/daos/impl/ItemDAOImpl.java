@@ -362,7 +362,7 @@ public class ItemDAOImpl implements ItemDAO {
 	@Override
 	public List<TotalizacaoDTO> buscarTotalizacao() {
 		Connection connection = getConnection();
-		String sql = "select (quantidade - preco_loja) as tipo, quantidade from item;";
+		String sql = "select (quantidade * preco_loja) as tipo, codigo from item;";
 		try (PreparedStatement statement = connection.prepareStatement(sql)) {
 			statement.execute();
 			ResultSet rs = statement.getResultSet();

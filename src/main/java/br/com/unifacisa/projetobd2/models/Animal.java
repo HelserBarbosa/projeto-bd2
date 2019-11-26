@@ -17,7 +17,7 @@ public class Animal {
 	private BigDecimal precoCompra = new BigDecimal("0");
 	private BigDecimal precoVenda;
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate DtNasc;
+	private LocalDate dtNasc;
 
 	public Long getRegistro() {
 		return registro;
