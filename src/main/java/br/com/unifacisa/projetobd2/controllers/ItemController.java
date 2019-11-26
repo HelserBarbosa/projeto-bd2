@@ -34,7 +34,7 @@ public class ItemController {
 		return new ResponseEntity<Item>(itemService.inserirNovoItem(item), HttpStatus.OK);
 	}
 
-	@DeleteMapping
+	@DeleteMapping("{codigo}")
 	public ResponseEntity<Void> deletarItemPeloCodigo(@PathVariable Long codigo) {
 		itemService.deletarItemPeloCodigo(codigo);
 		return new ResponseEntity<Void>(HttpStatus.OK);

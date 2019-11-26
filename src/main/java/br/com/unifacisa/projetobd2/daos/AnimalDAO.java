@@ -2,6 +2,7 @@ package br.com.unifacisa.projetobd2.daos;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,11 +31,11 @@ public class AnimalDAO {
 			statement.setString(1, animal.getTipo());
 			statement.setBigDecimal(2, animal.getPeso());
 			statement.setBigDecimal(3, animal.getAltura());
-			statement.setDate(4, animal.getDtUltMed());
+			statement.setDate(4, Date.valueOf(animal.getDtUltMed()));
 			statement.setString(5, animal.getRaca());
 			statement.setBigDecimal(6, animal.getPrecoCompra());
 			statement.setBigDecimal(7, animal.getPrecoVenda());
-			statement.setDate(8, animal.getDtNasc());
+			statement.setDate(8, Date.valueOf(animal.getDtNasc()));
 			statement.execute();
 			setGeneratedKey(animal, statement);
 			statement.close();
@@ -73,7 +74,7 @@ public class AnimalDAO {
 			statement.setString(3, animal.getRaca());
 			statement.setBigDecimal(4, animal.getPrecoCompra());
 			statement.setBigDecimal(5, animal.getPrecoVenda());
-			statement.setDate(6, animal.getDtNasc());
+			statement.setDate(6, Date.valueOf(animal.getDtNasc()));
 			statement.execute();
 			statement.close();
 			connection.close();
@@ -99,10 +100,10 @@ public class AnimalDAO {
 			statement.setString(2, animal.getTipo());
 			statement.setBigDecimal(3, animal.getPeso());
 			statement.setBigDecimal(4, animal.getAltura());
-			statement.setDate(5, animal.getDtUltMed());
+			statement.setDate(5, Date.valueOf(animal.getDtUltMed()));
 			statement.setString(6, animal.getRaca());
 			statement.setBigDecimal(7, animal.getPrecoCompra());
-			statement.setDate(8, animal.getDtNasc());
+			statement.setDate(8, Date.valueOf(animal.getDtNasc()));
 
 			statement.execute();
 
@@ -129,10 +130,10 @@ public class AnimalDAO {
 			statement.setString(2, animal.getTipo());
 			statement.setBigDecimal(3, animal.getPeso());
 			statement.setBigDecimal(4, animal.getAltura());
-			statement.setDate(5, animal.getDtUltMed());
+			statement.setDate(5, Date.valueOf(animal.getDtUltMed()));
 			statement.setString(6, animal.getRaca());
 			statement.setBigDecimal(7, animal.getPrecoVenda());
-			statement.setDate(8, animal.getDtNasc());
+			statement.setDate(8, Date.valueOf(animal.getDtNasc()));
 
 			statement.execute();
 
@@ -159,9 +160,9 @@ public class AnimalDAO {
 			statement.setString(2, animal.getTipo());
 			statement.setBigDecimal(3, animal.getPeso());
 			statement.setBigDecimal(4, animal.getAltura());
-			statement.setDate(5, animal.getDtUltMed());
+			statement.setDate(5, Date.valueOf(animal.getDtUltMed()));
 			statement.setString(6, animal.getRaca());
-			statement.setDate(7, animal.getDtNasc());
+			statement.setDate(7, Date.valueOf(animal.getDtNasc()));
 
 			statement.execute();
 
@@ -188,7 +189,7 @@ public class AnimalDAO {
 			statement.setString(2, animal.getTipo());
 			statement.setBigDecimal(3, animal.getPeso());
 			statement.setBigDecimal(4, animal.getAltura());
-			statement.setDate(5, animal.getDtUltMed());
+			statement.setDate(5, Date.valueOf(animal.getDtUltMed()));
 			statement.setString(6, animal.getRaca());
 			statement.setBigDecimal(7, animal.getPrecoCompra());
 			statement.setBigDecimal(8, animal.getPrecoVenda());
@@ -215,7 +216,7 @@ public class AnimalDAO {
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setBigDecimal(1, animal.getPeso());
 			statement.setBigDecimal(2, animal.getAltura());
-			statement.setDate(3, animal.getDtUltMed());
+			statement.setDate(3, Date.valueOf(animal.getDtUltMed()));
 			statement.setLong(4, animal.getRegistro());
 
 			statement.execute();
@@ -237,7 +238,7 @@ public class AnimalDAO {
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setBigDecimal(1, animal.getPeso());
-			statement.setDate(2, animal.getDtUltMed());
+			statement.setDate(2, Date.valueOf(animal.getDtUltMed()));
 			statement.setLong(3, animal.getRegistro());
 
 			statement.execute();
@@ -260,7 +261,7 @@ public class AnimalDAO {
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setBigDecimal(1, animal.getAltura());
-			statement.setDate(2, animal.getDtUltMed());
+			statement.setDate(2, Date.valueOf(animal.getDtUltMed()));
 			statement.setLong(3, animal.getRegistro());
 
 			statement.execute();
@@ -559,7 +560,7 @@ public class AnimalDAO {
 	public Animal buscarAnimalPorRegistro(long registro) {
 		Connection connection = new ConnectionFactory().getConnection();
 		StringBuilder sql = new StringBuilder("SELECT * FROM animal WHERE registro = ?");
-		try (PreparedStatement statement = connection.prepareStatement(sql.toString())){
+		try (PreparedStatement statement = connection.prepareStatement(sql.toString())) {
 			statement.setLong(1, registro);
 			statement.execute();
 			ResultSet rs = statement.getResultSet();
@@ -576,7 +577,7 @@ public class AnimalDAO {
 				animal.setDtNasc(rs.getDate("dat_nasc"));
 				return animal;
 			}
-			
+
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
 		}

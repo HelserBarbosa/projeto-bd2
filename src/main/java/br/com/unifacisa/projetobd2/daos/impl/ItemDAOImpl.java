@@ -45,7 +45,7 @@ public class ItemDAOImpl implements ItemDAO {
 			statement.setString(2, item.getTipo().toString());
 			statement.setBigDecimal(3, item.getPrecoFornecedor());
 			statement.setBigDecimal(4, item.getPrecoLoja());
-			statement.setObject(5, item.getSqlDate());
+			statement.setObject(5, item.sqlDate());
 			statement.setInt(6, item.getQuantidade());
 			statement.execute();
 			connection.commit();
@@ -133,7 +133,7 @@ public class ItemDAOImpl implements ItemDAO {
 			statement.setString(1, item.getDescricao());
 			statement.setString(2, item.getTipo().toString());
 			statement.setBigDecimal(3, item.getPrecoFornecedor());
-			statement.setDate(4, item.getSqlDate());
+			statement.setDate(4, item.sqlDate());
 			statement.setInt(5, item.getQuantidade());
 			statement.execute();
 			connection.commit();
@@ -158,6 +158,7 @@ public class ItemDAOImpl implements ItemDAO {
 			statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setLong(1, codigo);
 			statement.execute();
+			connection.commit();
 			statement.close();
 			connection.close();
 		} catch (SQLException e) {

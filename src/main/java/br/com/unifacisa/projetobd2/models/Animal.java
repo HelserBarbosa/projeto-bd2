@@ -2,6 +2,9 @@ package br.com.unifacisa.projetobd2.models;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Animal {
 
@@ -9,11 +12,13 @@ public class Animal {
 	private String tipo;
 	private BigDecimal peso;
 	private BigDecimal altura;
-	private Date dtUltMed;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dtUltMed;
 	private String raca;
 	private BigDecimal precoCompra = new BigDecimal("0");
 	private BigDecimal precoVenda;
-	private Date DtNasc;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate DtNasc;
 
 	public Long getRegistro() {
 		return registro;
@@ -47,14 +52,6 @@ public class Animal {
 		this.altura = altura;
 	}
 
-	public Date getDtUltMed() {
-		return dtUltMed;
-	}
-
-	public void setDtUltMed(Date dtUltMed) {
-		this.dtUltMed = dtUltMed;
-	}
-
 	public String getRaca() {
 		return raca;
 	}
@@ -79,11 +76,19 @@ public class Animal {
 		this.precoVenda = precoVenda;
 	}
 
-	public Date getDtNasc() {
+	public LocalDate getDtUltMed() {
+		return dtUltMed;
+	}
+
+	public void setDtUltMed(LocalDate dtUltMed) {
+		this.dtUltMed = dtUltMed;
+	}
+
+	public LocalDate getDtNasc() {
 		return DtNasc;
 	}
 
-	public void setDtNasc(Date dtNasc) {
+	public void setDtNasc(LocalDate dtNasc) {
 		DtNasc = dtNasc;
 	}
 

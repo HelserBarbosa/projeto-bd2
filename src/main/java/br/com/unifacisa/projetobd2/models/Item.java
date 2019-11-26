@@ -10,80 +10,84 @@ import java.time.LocalDate;
 
 public class Item {
 
-    private Long codigo;
-    private String descricao;
-    private TipoItem tipo;
-    private BigDecimal precoFornecedor;
-    private BigDecimal precoLoja;
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate validade;
-    private Integer quantidade;
+	private Long codigo;
+	private String descricao;
+	private TipoItem tipo;
+	private BigDecimal precoFornecedor;
+	private BigDecimal precoLoja;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate validade;
+	private Integer quantidade;
 
-    public Long getCodigo() {
-        return codigo;
-    }
+	public Long getCodigo() {
+		return codigo;
+	}
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
-    }
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	public void setTipo(TipoItem tipo) {
+		this.tipo = tipo;
+	}
 
-    public TipoItem getTipo() {
-        return tipo;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-    public void setTipo(String stringTipo) {
-        this.tipo = TipoItem.valueOf(stringTipo);
-    }
+	public TipoItem getTipo() {
+		return tipo;
+	}
 
-    public BigDecimal getPrecoFornecedor() {
-        return precoFornecedor;
-    }
+	public void setTipo(String stringTipo) {
+		this.tipo = TipoItem.valueOf(stringTipo);
+	}
 
-    public void setPrecoFornecedor(BigDecimal precoFornecedor) {
-        this.precoFornecedor = precoFornecedor;
-    }
+	public BigDecimal getPrecoFornecedor() {
+		return precoFornecedor;
+	}
 
-    public BigDecimal getPrecoLoja() {
-        return precoLoja;
-    }
+	public void setPrecoFornecedor(BigDecimal precoFornecedor) {
+		this.precoFornecedor = precoFornecedor;
+	}
 
-    public void setPrecoLoja(BigDecimal precoLoja) {
-        this.precoLoja = precoLoja;
-    }
+	public BigDecimal getPrecoLoja() {
+		return precoLoja;
+	}
 
-    public LocalDate getValidade() {
-        return validade;
-    }
+	public void setPrecoLoja(BigDecimal precoLoja) {
+		this.precoLoja = precoLoja;
+	}
 
-    public void setValidade(LocalDate validade) {
-        this.validade = validade;
-    }
+	public LocalDate getValidade() {
+		return validade;
+	}
 
-    public Integer getQuantidade() {
-        return quantidade;
-    }
+	public void setValidade(LocalDate validade) {
+		this.validade = validade;
+	}
 
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
-    }
+	public Integer getQuantidade() {
+		return quantidade;
+	}
 
-    public Date getSqlDate() throws ParseException {
-        return Date.valueOf(validade);
-    }
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
 
-    @Override
-    public String toString() {
-        return "Item [codigo=" + codigo + ", descricao=" + descricao + ", tipo=" + tipo + ", precoFornecedor="
-                + precoFornecedor + ", precoLoja=" + precoLoja + ", validade=" + validade + ", quantidade=" + quantidade
-                + "]";
-    }
+	public Date sqlDate() throws ParseException {
+		return Date.valueOf(validade);
+	}
+
+	@Override
+	public String toString() {
+		return "Item [codigo=" + codigo + ", descricao=" + descricao + ", tipo=" + tipo + ", precoFornecedor="
+				+ precoFornecedor + ", precoLoja=" + precoLoja + ", validade=" + validade + ", quantidade=" + quantidade
+				+ "]";
+	}
 
 }
