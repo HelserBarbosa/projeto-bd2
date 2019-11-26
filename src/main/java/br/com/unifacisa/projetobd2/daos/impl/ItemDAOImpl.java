@@ -281,27 +281,100 @@ public class ItemDAOImpl implements ItemDAO {
 		}
 	}
 
+	private Connection getConnection() {
+		Connection conn = new ConnectionFactory().getConnection();
+		try {
+			conn.setAutoCommit(false);
+		} catch (SQLException e) {
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
+		return conn;
+	}
+
+	private void rollback(Connection connection) {
+		try {
+			connection.rollback();
+		} catch (SQLException e) {
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
+	}
+
 	@Override
 	public List<Item> buscarTodosOsRegistros() {
-		// TODO Auto-generated method stub
+		Connection connection = getConnection();
+		String sql = "SELECT * FROM item";
+		try (PreparedStatement statement = connection.prepareStatement(sql)) {
+			statement.execute();
+			ResultSet rs = statement.getResultSet();
+			List<Item> itens = new ArrayList<Item>();
+			while (rs.next()) {
+				mapper(rs, itens);
+			}
+			return itens;
+		} catch (SQLException e) {
+			rollback(connection);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
 		return null;
 	}
 
 	@Override
-	public List<Item> buscarItensPorDescricao(String tipo) {
-		// TODO Auto-generated method stub
+	public List<Item> buscarItensPorDescricao(String descricao) {
+		Connection connection = getConnection();
+		String sql = "SELECT * FROM item WHERE descricao = ?";
+		try (PreparedStatement statement = connection.prepareStatement(sql)) {
+			statement.setString(1, descricao);
+			statement.execute();
+			ResultSet rs = statement.getResultSet();
+			List<Item> itens = new ArrayList<Item>();
+			while (rs.next()) {
+				mapper(rs, itens);
+			}
+			return itens;
+		} catch (SQLException e) {
+			rollback(connection);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
 		return null;
 	}
 
 	@Override
 	public List<Item> buscarItensPorTipo(String tipo) {
-		// TODO Auto-generated method stub
+		Connection connection = getConnection();
+		String sql = "SELECT * FROM item WHERE tipo = ?";
+		try (PreparedStatement statement = connection.prepareStatement(sql)) {
+			statement.setString(1, tipo);
+			statement.execute();
+			ResultSet rs = statement.getResultSet();
+			List<Item> itens = new ArrayList<Item>();
+			while (rs.next()) {
+				mapper(rs, itens);
+			}
+			return itens;
+		} catch (SQLException e) {
+			rollback(connection);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
 		return null;
 	}
 
 	@Override
 	public TotalizacaoDTO buscarTotalizacao() {
-		// TODO Auto-generated method stub
+		Connection connection = getConnection();
+		String sql = "SELECT * FROM item WHERE tipo = ?";
+		try (PreparedStatement statement = connection.prepareStatement(sql)) {
+			statement.setString(1, tipo);
+			statement.execute();
+			ResultSet rs = statement.getResultSet();
+			List<Item> itens = new ArrayList<Item>();
+			while (rs.next()) {
+				mapper(rs, itens);
+			}
+			return itens;
+		} catch (SQLException e) {
+			rollback(connection);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
 		return null;
 	}
 

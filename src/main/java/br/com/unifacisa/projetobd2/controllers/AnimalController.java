@@ -27,100 +27,102 @@ public class AnimalController {
 
 	@Autowired
 	private AnimalService service;
-	
+
 	@PostMapping
 	public ResponseEntity<Animal> inserirAnimal(@RequestBody Animal animal) {
-		return new ResponseEntity<>(service.inserirAnimal(animal),HttpStatus.CREATED);
+		return new ResponseEntity<>(service.inserirAnimal(animal), HttpStatus.CREATED);
 	}
-	
+
 	@PostMapping("peso-altura")
 	public ResponseEntity<Animal> inserirAnimalSemPesoAlturaMedicao(@RequestBody Animal animal) {
-		return new ResponseEntity<>(service.inserirAnimalSemPesoAlturaMedicao(animal),HttpStatus.CREATED);
+		return new ResponseEntity<>(service.inserirAnimalSemPesoAlturaMedicao(animal), HttpStatus.CREATED);
 	}
-	
+
 	@PostMapping("preco-venda")
 	public ResponseEntity<Animal> inserirAnimalSemPrecoVenda(@RequestBody Animal animal) {
-		return new ResponseEntity<>(service.inserirAnimalSemPrecoVenda(animal),HttpStatus.CREATED);
+		return new ResponseEntity<>(service.inserirAnimalSemPrecoVenda(animal), HttpStatus.CREATED);
 	}
+
 	@PostMapping("preco-compra")
 	public ResponseEntity<Animal> inserirAnimalSemPrecoCompra(@RequestBody Animal animal) {
-		return new ResponseEntity<>(service.inserirAnimalSemPrecoCompra(animal),HttpStatus.CREATED);
+		return new ResponseEntity<>(service.inserirAnimalSemPrecoCompra(animal), HttpStatus.CREATED);
 	}
+
 	@PostMapping("preco-venda-compra")
 	public Animal inserirAnimalSemPrecoCompraVenda(@RequestBody Animal animal) {
 		return service.inserirAnimalSemPrecoCompraVenda(animal);
 	}
-	
+
 	@PostMapping("data-nasc")
 	public ResponseEntity<Animal> inserirAnimalSemDataNasc(@RequestBody Animal animal) {
-		return new ResponseEntity<>(service.inserirAnimalSemDataNasc(animal),HttpStatus.CREATED);
+		return new ResponseEntity<>(service.inserirAnimalSemDataNasc(animal), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("peso-altura")
-	public ResponseEntity updateAnimalPesoAlturaDtaMed(@RequestBody Animal animal) {
+	public ResponseEntity<Void> updateAnimalPesoAlturaDtaMed(@RequestBody Animal animal) {
 		service.updateAnimalPesoAlturaDtaMed(animal);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@PutMapping("preco-compra")
-	public ResponseEntity updateAnimalPrecoCompra(@RequestBody Animal animal) {
+	public ResponseEntity<Void> updateAnimalPrecoCompra(@RequestBody Animal animal) {
 		service.updateAnimalPrecoCompra(animal);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@PutMapping("preco-compra-venda")
-	public ResponseEntity updateAnimalPrecoCompraVenda(@RequestBody Animal animal) {
+	public ResponseEntity<Void> updateAnimalPrecoCompraVenda(@RequestBody Animal animal) {
 		service.updateAnimalPrecoCompraVenda(animal);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@PutMapping("tipo")
-	public ResponseEntity updateAnimalTipo(@RequestBody Animal animal) {
+	public ResponseEntity<Void> updateAnimalTipo(@RequestBody Animal animal) {
 		service.updateAnimalTipo(animal);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@PutMapping("raca")
-	public ResponseEntity updateAnimalRaca(@RequestBody Animal animal) {
+	public ResponseEntity<Void> updateAnimalRaca(@RequestBody Animal animal) {
 		service.updateAnimalRaca(animal);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@PutMapping("tipo-raca")
-	public ResponseEntity updateAnimalTipoRaca(@RequestBody Animal animal) {
+	public ResponseEntity<Void> updateAnimalTipoRaca(@RequestBody Animal animal) {
 		service.updateAnimalTipoRaca(animal);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("registro")
-	public ResponseEntity deletarAnimalPorRegistro(@PathParam("registro") Long registro) {
+	public ResponseEntity<Void> deletarAnimalPorRegistro(@PathParam("registro") Long registro) {
 		service.deletarAnimalPorRegistro(registro);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("tipo")
-	public ResponseEntity deletarAnimalPorTipo(@PathParam("tipo") String tipo) {
+	public ResponseEntity<Void> deletarAnimalPorTipo(@PathParam("tipo") String tipo) {
 		service.deletarAnimalPorTipo(tipo);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<Animal>> listar(){
-		return new ResponseEntity<>(service.listar(),HttpStatus.OK);
+	public ResponseEntity<List<Animal>> listar() {
+		return new ResponseEntity<>(service.listar(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("tipo")
-	public ResponseEntity<List<Animal>> listarPorTipo(@RequestParam("tipo")String tipo){
-		return new  ResponseEntity<>(service.listarPorTipo(tipo),HttpStatus.OK);
+	public ResponseEntity<List<Animal>> listarPorTipo(@RequestParam("tipo") String tipo) {
+		return new ResponseEntity<>(service.listarPorTipo(tipo), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("preco-venda")
-	public ResponseEntity<List<Animal>> listarPorPrecoVenda(@RequestParam("preco") BigDecimal precoVenda){
-		return new ResponseEntity<>(service.listarPorPrecoVenda(precoVenda),HttpStatus.OK);
+	public ResponseEntity<List<Animal>> listarPorPrecoVenda(@RequestParam("preco") BigDecimal precoVenda) {
+		return new ResponseEntity<>(service.listarPorPrecoVenda(precoVenda), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("lucro")
-	public ResponseEntity<List<ConsultaLucroDTO>> consultaLucro(){
+	public ResponseEntity<List<ConsultaLucroDTO>> consultaLucro() {
 		return new ResponseEntity<>(service.consultaLucro(), HttpStatus.OK);
 	}
 }
