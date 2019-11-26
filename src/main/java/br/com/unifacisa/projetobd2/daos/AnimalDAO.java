@@ -389,7 +389,7 @@ public class AnimalDAO {
 
 		try {
 
-			StringBuilder sql = new StringBuilder("UPDATE animal SET raca=?");
+			StringBuilder sql = new StringBuilder("UPDATE animal SET raca=?,tipo=?");
 			sql.append("WHERE registro=?;");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
@@ -407,7 +407,7 @@ public class AnimalDAO {
 
 	}
 
-	public void DeletarAnimalPorRegistro(Long registro) {
+	public void deletarAnimalPorRegistro(Long registro) {
 		Connection connection = new ConnectionFactory().getConnection();
 
 		try {
@@ -427,7 +427,7 @@ public class AnimalDAO {
 
 	}
 
-	public void DeletarAnimalPorTipo(String tipo) {
+	public void deletarAnimalPorTipo(String tipo) {
 		Connection connection = new ConnectionFactory().getConnection();
 		try {
 

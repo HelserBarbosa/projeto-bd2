@@ -234,22 +234,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
 			List<Funcionario> funcionarios = new ArrayList<>();
 
-			while (resultado.next()) {
-				Funcionario func = new Funcionario();
-
-				func.setMatricula(resultado.getLong("matricula"));
-				func.setCpf(resultado.getString("cpf"));
-				func.setDtAdm(resultado.getDate("dat_adm").toLocalDate());
-				func.setDtDemi(resultado.getDate("dat_demissao").toLocalDate());
-				func.setDtNasc(resultado.getDate("dat_nasc").toLocalDate());
-				func.setEndereço(resultado.getString("endereco"));
-				func.setFuncao(resultado.getString("funcao"));
-				func.setNome(resultado.getString("nome"));
-				func.setSalario(resultado.getBigDecimal("salario"));
-				func.setTelefone(resultado.getString("telefone"));
-
-				funcionarios.add(func);
-			}
+			mapper(resultado, funcionarios);
 
 			return funcionarios;
 		} catch (SQLException e) {
@@ -296,19 +281,49 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			statement.execute();
 			ResultSet rs = statement.getResultSet();
 			while (rs.next()) {
-				Funcionario func = new Funcionario();
-				func.setMatricula(rs.getLong("matricula"));
-				func.setCpf(rs.getString("cpf"));
-				func.setDtAdm(rs.getDate("dat_adm").toLocalDate());
-				func.setDtDemi(rs.getDate("dat_demissao").toLocalDate());
-				func.setDtNasc(rs.getDate("dat_nasc").toLocalDate());
-				func.setEndereço(rs.getString("endereco"));
-				func.setFuncao(rs.getString("funcao"));
-				func.setNome(rs.getString("nome"));
-				func.setSalario(rs.getBigDecimal("salario"));
-				func.setTelefone(rs.getString("telefone"));
+				Funcionario func = mapperFunc(rs);
 				return func;
 			}
+		} catch (SQLException e) {
+			rollback(conn, e);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
+		return null;
+	}
+
+	private Funcionario mapperFunc(ResultSet rs) throws SQLException {
+		Funcionario func = new Funcionario();
+		func.setMatricula(rs.getLong("matricula"));
+		func.setCpf(rs.getString("cpf"));
+		func.setDtAdm(rs.getDate("dat_adm").toLocalDate());
+		func.setDtDemi(rs.getDate("dat_demissao").toLocalDate());
+		func.setDtNasc(rs.getDate("dat_nasc").toLocalDate());
+		func.setEndereço(rs.getString("endereco"));
+		func.setFuncao(rs.getString("funcao"));
+		func.setNome(rs.getString("nome"));
+		func.setSalario(rs.getBigDecimal("salario"));
+		func.setTelefone(rs.getString("telefone"));
+		return func;
+	}
+
+	private void mapper(ResultSet resultado, List<Funcionario> funcionarios) throws SQLException {
+		while (resultado.next()) {
+			funcionarios.add(mapperFunc(resultado));
+		}
+	}
+
+	@Override
+	public List<Funcionario> listarPorNome(String nome) {
+		Connection conn = getConnection();
+		String sql = "SELECT * FROM funcionario WHERE nome= ?";
+
+		try (PreparedStatement statement = createStatement(conn, sql)) {
+			statement.setString(1, nome);
+			statement.execute();
+			ResultSet rs = statement.getResultSet();
+			List<Funcionario> funcionarios = new ArrayList<>();
+			mapper(rs, funcionarios);
+			return funcionarios;
 		} catch (SQLException e) {
 			rollback(conn, e);
 			PetShopConnectionException.handlePetShopConnectionException(e);

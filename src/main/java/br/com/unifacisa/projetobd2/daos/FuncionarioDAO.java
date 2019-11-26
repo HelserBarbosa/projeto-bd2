@@ -32,4 +32,6 @@ public interface FuncionarioDAO {
 	List<Funcionario> listarPorDescricao(String descricao);
 
 	Funcionario buscarFuncionarioPorMatricula(long matricula);
+	
+	List<Funcionario> listarPorNome(String nome);
 }
