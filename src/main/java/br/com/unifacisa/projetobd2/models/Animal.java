@@ -5,85 +5,93 @@ import java.sql.Date;
 
 public class Animal {
 
-    private Long registro;
-    private String tipo;
-    private BigDecimal peso;
-    private BigDecimal altura;
-    private Date dtUltMed;
-    private String raca;
-    private BigDecimal precoCompra = new BigDecimal("0");
-    private BigDecimal precoVenda;
-    private Date DtNasc;
+	private Long registro;
+	private String tipo;
+	private BigDecimal peso;
+	private BigDecimal altura;
+	private Date dtUltMed;
+	private String raca;
+	private BigDecimal precoCompra = new BigDecimal("0");
+	private BigDecimal precoVenda;
+	private Date DtNasc;
 
-    public Long getRegistro() {
-        return registro;
-    }
+	public Long getRegistro() {
+		return registro;
+	}
 
-    public void setRegistro(Long registro) {
-        this.registro = registro;
-    }
+	public void setRegistro(Long registro) {
+		this.registro = registro;
+	}
 
-    public String getTipo() {
-        return tipo;
-    }
+	public String getTipo() {
+		return tipo;
+	}
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 
-    public BigDecimal getPeso() {
-        return peso;
-    }
+	public BigDecimal getPeso() {
+		return peso;
+	}
 
-    public void setPeso(BigDecimal peso) {
-        this.peso = peso;
-    }
+	public void setPeso(BigDecimal peso) {
+		this.peso = peso;
+	}
 
-    public BigDecimal getAltura() {
-        return altura;
-    }
+	public BigDecimal getAltura() {
+		return altura;
+	}
 
-    public void setAltura(BigDecimal altura) {
-        this.altura = altura;
-    }
+	public void setAltura(BigDecimal altura) {
+		this.altura = altura;
+	}
 
-    public Date getDtUltMed() {
-        return dtUltMed;
-    }
+	public Date getDtUltMed() {
+		return dtUltMed;
+	}
 
-    public void setDtUltMed(Date dtUltMed) {
-        this.dtUltMed = dtUltMed;
-    }
+	public void setDtUltMed(Date dtUltMed) {
+		this.dtUltMed = dtUltMed;
+	}
 
-    public String getRaca() {
-        return raca;
-    }
+	public String getRaca() {
+		return raca;
+	}
 
-    public void setRaca(String raça) {
-        this.raca = raça;
-    }
+	public void setRaca(String raça) {
+		this.raca = raça;
+	}
 
-    public BigDecimal getPrecoCompra() {
-        return precoCompra;
-    }
+	public BigDecimal getPrecoCompra() {
+		return precoCompra;
+	}
 
-    public void setPrecoCompra(BigDecimal precoCompra) {
-        this.precoCompra = precoCompra;
-    }
+	public void setPrecoCompra(BigDecimal precoCompra) {
+		this.precoCompra = precoCompra;
+	}
 
-    public BigDecimal getPrecoVenda() {
-        return precoVenda;
-    }
+	public BigDecimal getPrecoVenda() {
+		return precoVenda;
+	}
 
-    public void setPrecoVenda(BigDecimal precoVenda) {
-        this.precoVenda = precoVenda;
-    }
+	public void setPrecoVenda(BigDecimal precoVenda) {
+		this.precoVenda = precoVenda;
+	}
 
-    public Date getDtNasc() {
-        return DtNasc;
-    }
+	public Date getDtNasc() {
+		return DtNasc;
+	}
 
-    public void setDtNasc(Date dtNasc) {
-        DtNasc = dtNasc;
-    }
+	public void setDtNasc(Date dtNasc) {
+		DtNasc = dtNasc;
+	}
+
+	@Override
+	public String toString() {
+		return "Animal [registro=" + registro + ", tipo=" + tipo + ", peso=" + peso + ", altura=" + altura
+				+ ", dtUltMed=" + dtUltMed + ", raca=" + raca + ", precoCompra=" + precoCompra + ", precoVenda="
+				+ precoVenda + ", DtNasc=" + DtNasc + "]";
+	}
+
 }

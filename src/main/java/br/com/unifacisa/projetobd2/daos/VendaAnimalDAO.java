@@ -1,9 +1,11 @@
 package br.com.unifacisa.projetobd2.daos;
 
-import br.com.unifacisa.projetobd2.models.VendaAnimal;
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
+import br.com.unifacisa.projetobd2.models.VendaAnimal;
 
 @Repository
 public interface VendaAnimalDAO {
@@ -23,5 +25,15 @@ public interface VendaAnimalDAO {
 	boolean updateDiaMesAnoPorNotaFiscal(VendaAnimal vendaAnimal);
 
 	boolean updateDisconto(BigDecimal novoDesconto);
+	
+	List<VendaAnimal> listarVendas();
+	
+	List<VendaAnimal> listarVendasPorTipo(String tipo);
+	
+	List<VendaAnimal> listarVendasPorNomeVendedor(String nomeVendedor);
+	
+	List<VendaAnimal> listarVendasPorMesEAno(int mes, int ano);
+	
+	List<VendaAnimal> listarVendasPorVendedorETipoAnimal(Long matriculaVendedor, String tipoAnimal);
 
 }

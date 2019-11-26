@@ -238,6 +238,15 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 				Funcionario func = new Funcionario();
 
 				func.setMatricula(resultado.getLong("matricula"));
+				func.setCpf(resultado.getString("cpf"));
+				func.setDtAdm(resultado.getDate("dat_adm").toLocalDate());
+				func.setDtDemi(resultado.getDate("dat_demissao").toLocalDate());
+				func.setDtNasc(resultado.getDate("dat_nasc").toLocalDate());
+				func.setEndereço(resultado.getString("endereco"));
+				func.setFuncao(resultado.getString("funcao"));
+				func.setNome(resultado.getString("nome"));
+				func.setSalario(resultado.getBigDecimal("salario"));
+				func.setTelefone(resultado.getString("telefone"));
 
 				funcionarios.add(func);
 			}
@@ -275,6 +284,35 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			PetShopConnectionException.handlePetShopConnectionException(e);
 		}
 
+		return null;
+	}
+
+	@Override
+	public Funcionario buscarFuncionarioPorMatricula(long matricula) {
+		Connection conn = getConnection();
+		String sql = "SELECT * FROM funcionario WHERE matricula= ?";
+		try (PreparedStatement statement = createStatement(conn, sql)) {
+			statement.setLong(1, matricula);
+			statement.execute();
+			ResultSet rs = statement.getResultSet();
+			while (rs.next()) {
+				Funcionario func = new Funcionario();
+				func.setMatricula(rs.getLong("matricula"));
+				func.setCpf(rs.getString("cpf"));
+				func.setDtAdm(rs.getDate("dat_adm").toLocalDate());
+				func.setDtDemi(rs.getDate("dat_demissao").toLocalDate());
+				func.setDtNasc(rs.getDate("dat_nasc").toLocalDate());
+				func.setEndereço(rs.getString("endereco"));
+				func.setFuncao(rs.getString("funcao"));
+				func.setNome(rs.getString("nome"));
+				func.setSalario(rs.getBigDecimal("salario"));
+				func.setTelefone(rs.getString("telefone"));
+				return func;
+			}
+		} catch (SQLException e) {
+			rollback(conn, e);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
 		return null;
 	}
 }

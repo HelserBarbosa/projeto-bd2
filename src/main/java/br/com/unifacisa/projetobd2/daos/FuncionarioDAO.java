@@ -30,4 +30,6 @@ public interface FuncionarioDAO {
 	List<Funcionario> listar();
 	
 	List<Funcionario> listarPorDescricao(String descricao);
+
+	Funcionario buscarFuncionarioPorMatricula(long matricula);
 }

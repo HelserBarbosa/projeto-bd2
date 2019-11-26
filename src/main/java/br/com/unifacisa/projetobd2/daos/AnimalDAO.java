@@ -555,4 +555,31 @@ public class AnimalDAO {
 			resultado.add(animal);
 		}
 	}
+
+	public Animal buscarAnimalPorRegistro(long registro) {
+		Connection connection = new ConnectionFactory().getConnection();
+		StringBuilder sql = new StringBuilder("SELECT * FROM animal WHERE registro = ?");
+		try (PreparedStatement statement = connection.prepareStatement(sql.toString())){
+			statement.setLong(1, registro);
+			statement.execute();
+			ResultSet rs = statement.getResultSet();
+			while (rs.next()) {
+				Animal animal = new Animal();
+				animal.setRegistro(rs.getLong("registro"));
+				animal.setTipo(rs.getString("tipo"));
+				animal.setPeso(rs.getBigDecimal("peso"));
+				animal.setAltura(rs.getBigDecimal("altura"));
+				animal.setDtUltMed(rs.getDate("dat_ult_med"));
+				animal.setRaca(rs.getString("raca"));
+				animal.setPrecoCompra(rs.getBigDecimal("preco_compra"));
+				animal.setPrecoVenda(rs.getBigDecimal("preco_venda"));
+				animal.setDtNasc(rs.getDate("dat_nasc"));
+				return animal;
+			}
+			
+		} catch (SQLException e) {
+			throw new PetShopConnectionException(e.getMessage());
+		}
+		throw new PetShopConnectionException("Animal não encontrado");
+	}
 }

@@ -85,4 +85,12 @@ public class VendaAnimal {
 	public void setValorFinal(BigDecimal valorFinal) {
 		this.valorFinal = valorFinal;
 	}
+
+	@Override
+	public String toString() {
+		return "VendaAnimal [notaFiscal=" + notaFiscal + ", animal=" + animal + ", funcionario=" + funcionario
+				+ ", dia=" + dia + ", mes=" + mes + ", ano=" + ano + ", comissao=" + comissao + ", desconto=" + desconto
+				+ ", valorFinal=" + valorFinal + "]";
+	}
+
 }

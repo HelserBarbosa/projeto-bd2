@@ -2,14 +2,15 @@ package br.com.unifacisa.projetobd2.daos.impl;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-import br.com.unifacisa.projetobd2.daos.AnimalDAO;
-import br.com.unifacisa.projetobd2.daos.FuncionarioDAO;
 import br.com.unifacisa.projetobd2.daos.VendaAnimalDAO;
 import br.com.unifacisa.projetobd2.exceptions.PetShopConnectionException;
 import br.com.unifacisa.projetobd2.models.Animal;
@@ -19,41 +20,41 @@ import br.com.unifacisa.projetobd2.util.ConnectionFactory;
 
 public class VendaAnimalDAOImpl implements VendaAnimalDAO {
 
-	public static void main(String[] args) {
-		VendaAnimal va = new VendaAnimal();
-		Animal animal = new Animal();
-		AnimalDAO animalDao = new AnimalDAO();
-		FuncionarioDAO fdao = new FuncionarioDAOImpl();
-		VendaAnimalDAO vdao = new VendaAnimalDAOImpl();
-
-		animal.setAltura(new BigDecimal("15"));
-		animal.setPeso(new BigDecimal("15"));
-		animal.setPrecoCompra(new BigDecimal("150"));
-		animal.setPrecoCompra(new BigDecimal("130"));
-		animal.setRaca("raca");
-		animal.setTipo("tipo");
-		animalDao.inserirAnimal(animal);
-
-		Funcionario funcionario = new Funcionario();
-		funcionario.setCpf("12345678910");
-		funcionario.setDtAdm(LocalDate.of(2015, 2, 5));
-		funcionario.setDtNasc(LocalDate.of(1989, 5, 25));
-		funcionario.setEndereço("rua rua rua rua");
-		funcionario.setFuncao("atendente");
-		funcionario.setNome("nome");
-		funcionario.setTelefone("333333333");
-		fdao.criarFuncionario(funcionario);
-
-		va.setAnimal(animal);
-		va.setFuncionario(funcionario);
-		va.setAno(2019);
-		va.setComissao(new BigDecimal("5"));
-		va.setValorFinal(new BigDecimal("50"));
-		va.setMes(03);
-		va.setDia(14);
-		vdao.insertSemInformarDesconto(va);
-		vdao.deleteVendaPorNotaFiscal(va.getNotaFiscal());
-	}
+//	public static void main(String[] args) {
+//		VendaAnimal va = new VendaAnimal();
+//		Animal animal = new Animal();
+//		AnimalDAO animalDao = new AnimalDAO();
+//		FuncionarioDAO fdao = new FuncionarioDAOImpl();
+//		VendaAnimalDAO vdao = new VendaAnimalDAOImpl();
+//
+//		animal.setAltura(new BigDecimal("15"));
+//		animal.setPeso(new BigDecimal("15"));
+//		animal.setPrecoCompra(new BigDecimal("150"));
+//		animal.setPrecoCompra(new BigDecimal("130"));
+//		animal.setRaca("raca");
+//		animal.setTipo("tipo");
+//		animalDao.inserirAnimal(animal);
+//
+//		Funcionario funcionario = new Funcionario();
+//		funcionario.setCpf("12345678910");
+//		funcionario.setDtAdm(LocalDate.of(2015, 2, 5));
+//		funcionario.setDtNasc(LocalDate.of(1989, 5, 25));
+//		funcionario.setEndereço("rua rua rua rua");
+//		funcionario.setFuncao("atendente");
+//		funcionario.setNome("nome");
+//		funcionario.setTelefone("333333333");
+//		fdao.criarFuncionario(funcionario);
+//
+//		va.setAnimal(animal);
+//		va.setFuncionario(funcionario);
+//		va.setAno(2019);
+//		va.setComissao(new BigDecimal("5"));
+//		va.setValorFinal(new BigDecimal("50"));
+//		va.setMes(03);
+//		va.setDia(14);
+//		vdao.insertSemInformarDesconto(va);
+//		vdao.deleteVendaPorNotaFiscal(va.getNotaFiscal());
+//	}
 
 	@Override
 	public VendaAnimal insertComTodosOsDados(VendaAnimal vendaAnimal) {
@@ -212,6 +213,185 @@ public class VendaAnimalDAOImpl implements VendaAnimalDAO {
 			PetShopConnectionException.handlePetShopConnectionException(e);
 		}
 		return false;
+	}
+
+	public static void main(String[] args) {
+		VendaAnimalDAO dao = new VendaAnimalDAOImpl();
+		List<VendaAnimal> vendas = dao.listarVendasPorNomeVendedor("teste nome");
+		vendas.forEach(System.out::println);
+	}
+
+	@Override
+	public List<VendaAnimal> listarVendas() {
+		Connection connection = getConnection();
+		List<VendaAnimal> vendas = new ArrayList<>();
+		StringBuilder sql = new StringBuilder("SELECT * FROM venda_animal va\n");
+		sql.append("INNER JOIN funcionario fu ON va.mat_func = fu.matricula\n");
+		sql.append("INNER JOIN animal an ON va.reg_animal = an.registro;");
+		try (PreparedStatement statement = createStatement(connection, sql.toString())) {
+			statement.execute();
+			ResultSet rs = statement.getResultSet();
+			while (rs.next()) {
+				vendas.add(mapResult(rs));
+			}
+			rs.close();
+			statement.close();
+			connection.close();
+			return vendas;
+		} catch (SQLException e) {
+			rollback(connection, e);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
+		return null;
+	}
+
+	private VendaAnimal mapResult(ResultSet rs) throws SQLException {
+		VendaAnimal va = new VendaAnimal();
+		Animal a = new Animal();
+		Funcionario f = new Funcionario();
+
+		va.setNotaFiscal(rs.getLong("nota_fiscal"));
+		f.setMatricula(rs.getLong("matricula"));
+		f.setCpf(rs.getString("cpf"));
+		f.setDtAdm(parseDate(rs.getDate("dat_adm")));
+		f.setDtDemi(parseDate(rs.getDate("dat_demissao")));
+		f.setDtNasc(parseDate(rs.getDate("dat_nasc")));
+		f.setEndereço(rs.getString("endereco"));
+		f.setFuncao(rs.getString("funcao"));
+		f.setNome(rs.getString("nome"));
+		f.setSalario(rs.getBigDecimal("salario"));
+		f.setTelefone(rs.getString("telefone"));
+		a.setRegistro(rs.getLong("registro"));
+		a.setTipo(rs.getString("tipo"));
+		a.setPeso(rs.getBigDecimal("peso"));
+		a.setAltura(rs.getBigDecimal("altura"));
+		a.setDtUltMed(rs.getDate("dat_ult_med"));
+		a.setRaca(rs.getString("raca"));
+		a.setPrecoCompra(rs.getBigDecimal("preco_compra"));
+		a.setPrecoVenda(rs.getBigDecimal("preco_venda"));
+		a.setDtNasc(rs.getDate("dat_nasc"));
+		va.setAnimal(a);
+		va.setFuncionario(f);
+		va.setDia(rs.getInt("dia"));
+		va.setMes(rs.getInt("mes"));
+		va.setAno(rs.getInt("ano"));
+		va.setComissao(rs.getBigDecimal("comissao_a"));
+		va.setDesconto(rs.getBigDecimal("desconto"));
+		va.setValorFinal(rs.getBigDecimal("valor_final"));
+		return va;
+	}
+
+	public LocalDate parseDate(Date sqlDate) {
+		if (sqlDate == null) {
+			return null;
+		}
+		return sqlDate.toLocalDate();
+	}
+
+	@Override
+	public List<VendaAnimal> listarVendasPorTipo(String tipo) {
+		Connection connection = getConnection();
+		List<VendaAnimal> vendas = new ArrayList<>();
+		StringBuilder sql = new StringBuilder("SELECT * FROM venda_animal va\n");
+		sql.append("INNER JOIN funcionario fu ON va.mat_func = fu.matricula\n");
+		sql.append("INNER JOIN animal an ON va.reg_animal = an.registro\n");
+		sql.append("WHERE an.tipo = ?");
+		try (PreparedStatement statement = createStatement(connection, sql.toString())) {
+			statement.setString(1, tipo);
+			statement.execute();
+			ResultSet rs = statement.getResultSet();
+			while (rs.next()) {
+				vendas.add(mapResult(rs));
+			}
+			rs.close();
+			statement.close();
+			connection.close();
+			return vendas;
+		} catch (SQLException e) {
+			rollback(connection, e);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
+		return null;
+	}
+
+	@Override
+	public List<VendaAnimal> listarVendasPorNomeVendedor(String nomeVendedor) {
+		Connection connection = getConnection();
+		List<VendaAnimal> vendas = new ArrayList<>();
+		StringBuilder sql = new StringBuilder("SELECT * FROM venda_animal va\n");
+		sql.append("INNER JOIN funcionario fu ON va.mat_func = fu.matricula\n");
+		sql.append("INNER JOIN animal an ON va.reg_animal = an.registro\n");
+		sql.append("WHERE fu.nome = ?");
+		try (PreparedStatement statement = createStatement(connection, sql.toString())) {
+			statement.setString(1, nomeVendedor);
+			statement.execute();
+			ResultSet rs = statement.getResultSet();
+			while (rs.next()) {
+				vendas.add(mapResult(rs));
+			}
+			rs.close();
+			statement.close();
+			connection.close();
+			return vendas;
+		} catch (SQLException e) {
+			rollback(connection, e);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
+		return null;
+	}
+
+	@Override
+	public List<VendaAnimal> listarVendasPorMesEAno(int mes, int ano) {
+		Connection connection = getConnection();
+		List<VendaAnimal> vendas = new ArrayList<>();
+		StringBuilder sql = new StringBuilder("SELECT * FROM venda_animal va\n");
+		sql.append("INNER JOIN funcionario fu ON va.mat_func = fu.matricula\n");
+		sql.append("INNER JOIN animal an ON va.reg_animal = an.registro\n");
+		sql.append("WHERE va.mes = ? AND va.ano = ?;");
+		try (PreparedStatement statement = createStatement(connection, sql.toString())) {
+			statement.setInt(1, mes);
+			statement.setInt(2, ano);
+			statement.execute();
+			ResultSet rs = statement.getResultSet();
+			while (rs.next()) {
+				vendas.add(mapResult(rs));
+			}
+			rs.close();
+			statement.close();
+			connection.close();
+			return vendas;
+		} catch (SQLException e) {
+			rollback(connection, e);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
+		return null;
+	}
+
+	@Override
+	public List<VendaAnimal> listarVendasPorVendedorETipoAnimal(Long matriculaVendedor, String tipoAnimal) {
+		Connection connection = getConnection();
+		List<VendaAnimal> vendas = new ArrayList<>();
+		StringBuilder sql = new StringBuilder("SELECT * FROM venda_animal va\n");
+		sql.append("INNER JOIN funcionario fu ON va.mat_func = fu.matricula\n");
+		sql.append("INNER JOIN animal an ON va.reg_animal = an.registro\n");
+		sql.append("WHERE fu.matricula = ? AND an.tipo = ?;");
+		try (PreparedStatement statement = createStatement(connection, sql.toString())) {
+			statement.setLong(1, matriculaVendedor);
+			statement.setString(2, tipoAnimal);
+			statement.execute();
+			ResultSet rs = statement.getResultSet();
+			while (rs.next()) {
+				vendas.add(mapResult(rs));
+			}
+			rs.close();
+			statement.close();
+			connection.close();
+			return vendas;
+		} catch (SQLException e) {
+			rollback(connection, e);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
+		return null;
 	}
 
 	private VendaAnimal setGeneratedKey(VendaAnimal vendaAnimal, PreparedStatement statement) {

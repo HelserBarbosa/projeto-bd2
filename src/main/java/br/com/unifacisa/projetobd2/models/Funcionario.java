@@ -113,4 +113,12 @@ public class Funcionario {
 	public void setFuncao(String funcao) {
 		this.funcao = funcao;
 	}
+
+	@Override
+	public String toString() {
+		return "Funcionario [matricula=" + matricula + ", nome=" + nome + ", cpf=" + cpf + ", endereco=" + endereco
+				+ ", telefone=" + telefone + ", salario=" + salario + ", dtDemi=" + dtDemi + ", dtNasc=" + dtNasc
+				+ ", dtAdm=" + dtAdm + ", funcao=" + funcao + "]";
+	}
+
 }
