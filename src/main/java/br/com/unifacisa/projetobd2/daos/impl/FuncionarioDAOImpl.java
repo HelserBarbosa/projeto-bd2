@@ -209,7 +209,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
 	public Funcionario demisaoPorMatricula(Funcionario funcionario) {
 		Connection conn = getConnection();
-		String sql = "DELETE funcionario WHERE matricula=?";
+		String sql = "DELETE FROM funcionario WHERE matricula=?";
 		try (PreparedStatement statement = createStatement(conn, sql)) {
 			statement.setLong(1, funcionario.getMatricula());
 			statement.execute();
