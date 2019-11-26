@@ -262,7 +262,7 @@ public class VendaAnimalDAOImpl implements VendaAnimalDAO {
 		a.setTipo(rs.getString("tipo"));
 		a.setPeso(rs.getBigDecimal("peso"));
 		a.setAltura(rs.getBigDecimal("altura"));
-		a.setDtUltMed(rs.getDate("dat_ult_med").toLocalDate());
+		a.setDtUltMed(parseDate(rs.getDate("dat_ult_med")));
 		a.setRaca(rs.getString("raca"));
 		a.setPrecoCompra(rs.getBigDecimal("preco_compra"));
 		a.setPrecoVenda(rs.getBigDecimal("preco_venda"));
@@ -279,10 +279,7 @@ public class VendaAnimalDAOImpl implements VendaAnimalDAO {
 	}
 
 	public LocalDate parseDate(Date sqlDate) {
-		if (sqlDate == null) {
-			return null;
-		}
-		return sqlDate.toLocalDate();
+		return (sqlDate == null) ? null : sqlDate.toLocalDate();
 	}
 
 	@Override

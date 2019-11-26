@@ -38,7 +38,6 @@ public class AnimalDAO {
 			statement.setDate(8, Date.valueOf(animal.getDtNasc()));
 			statement.execute();
 			setGeneratedKey(animal, statement);
-			statement.close();
 			connection.close();
 			return animal;
 		} catch (SQLException e) {
@@ -76,7 +75,6 @@ public class AnimalDAO {
 			statement.setBigDecimal(5, animal.getPrecoVenda());
 			statement.setDate(6, Date.valueOf(animal.getDtNasc()));
 			statement.execute();
-			statement.close();
 			connection.close();
 			return setGeneratedKey(animal, statement);
 
@@ -107,7 +105,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 			return setGeneratedKey(animal, statement);
 		} catch (SQLException e) {
@@ -137,7 +134,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 			return setGeneratedKey(animal, statement);
 		} catch (SQLException e) {
@@ -166,7 +162,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 			return setGeneratedKey(animal, statement);
 		} catch (SQLException e) {
@@ -195,7 +190,6 @@ public class AnimalDAO {
 			statement.setBigDecimal(8, animal.getPrecoVenda());
 			setGeneratedKey(animal, statement);
 			statement.execute();
-			statement.close();
 			connection.close();
 			return animal;
 		} catch (SQLException e) {
@@ -220,7 +214,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
@@ -242,7 +235,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
@@ -265,7 +257,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
@@ -287,7 +278,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
@@ -309,7 +299,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
@@ -332,7 +321,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
@@ -354,7 +342,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
@@ -376,7 +363,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 		} catch (SQLException e) {
 			throw new PetShopConnectionException(e.getMessage());
@@ -517,7 +503,7 @@ public class AnimalDAO {
 		Connection connection = new ConnectionFactory().getConnection();
 		try {
 
-			String sql = "SELECT nome,(animal.preco_venda - animal.preco_compra) as lucro FROM animal";
+			String sql = "SELECT tipo,(animal.preco_venda - animal.preco_compra) as lucro FROM animal";
 			PreparedStatement statement = connection.prepareStatement(sql);
 
 			ResultSet resultSet = statement.executeQuery();
@@ -526,7 +512,7 @@ public class AnimalDAO {
 			while (resultSet.next()) {
 
 				ConsultaLucroDTO consultaLucro = new ConsultaLucroDTO();
-				consultaLucro.setNome(resultSet.getString("nome"));
+				consultaLucro.setNome(resultSet.getString("tipo"));
 				consultaLucro.setLucro(resultSet.getBigDecimal("lucro"));
 
 				resultado.add(consultaLucro);
