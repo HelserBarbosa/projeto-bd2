@@ -7,12 +7,36 @@ public class VendaAnimal {
 	private Long notaFiscal;
 	private Animal animal;
 	private Funcionario funcionario;
-	private String dia;
-	private String mes;
-	private String ano;
+	private Integer dia;
+	private Integer mes;
+	private Integer ano;
 	private BigDecimal comissao;
 	private BigDecimal desconto;
 	private BigDecimal valorFinal;
+
+	public Integer getDia() {
+		return dia;
+	}
+
+	public void setDia(Integer dia) {
+		this.dia = dia;
+	}
+
+	public Integer getMes() {
+		return mes;
+	}
+
+	public void setMes(Integer mes) {
+		this.mes = mes;
+	}
+
+	public Integer getAno() {
+		return ano;
+	}
+
+	public void setAno(Integer ano) {
+		this.ano = ano;
+	}
 
 	public Long getNotaFiscal() {
 		return notaFiscal;
@@ -36,30 +60,6 @@ public class VendaAnimal {
 
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
-	}
-
-	public String getDia() {
-		return dia;
-	}
-
-	public void setDia(String dia) {
-		this.dia = dia;
-	}
-
-	public String getMes() {
-		return mes;
-	}
-
-	public void setMes(String mes) {
-		this.mes = mes;
-	}
-
-	public String getAno() {
-		return ano;
-	}
-
-	public void setAno(String ano) {
-		this.ano = ano;
 	}
 
 	public BigDecimal getComissao() {

@@ -13,7 +13,6 @@ import br.com.unifacisa.projetobd2.daos.FuncionarioDAO;
 import br.com.unifacisa.projetobd2.exceptions.PetShopConnectionException;
 import br.com.unifacisa.projetobd2.models.Funcionario;
 import br.com.unifacisa.projetobd2.util.ConnectionFactory;
-import br.com.unifacisa.projetobd2.util.SQLUtils;
 
 public class FuncionarioDAOImpl implements FuncionarioDAO {
 
@@ -48,66 +47,6 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 		}
 	}
 
-	private PreparedStatement createStatement(Connection connection) {
-		try {
-			return connection.prepareStatement(SQLUtils.getExternalQuery("CRIAR_FUNCIONARIO"),
-					Statement.RETURN_GENERATED_KEYS);
-		} catch (SQLException e) {
-			PetShopConnectionException.handlePetShopConnectionException(e);
-		}
-		throw new PetShopConnectionException("Algo quebrou no prepare statement");
-	}
-
-	private PreparedStatement createStatementSemSalario(Connection connection) {
-		try {
-			return connection.prepareStatement(SQLUtils.getExternalQuery("INSERIR_FUNCIONARIO_SEM_SALARIO"),
-					Statement.RETURN_GENERATED_KEYS);
-		} catch (SQLException e) {
-			PetShopConnectionException.handlePetShopConnectionException(e);
-		}
-		throw new PetShopConnectionException("Algo quebrou no prepare statement");
-	}
-
-	private PreparedStatement createStatementSemTelefone(Connection connection) {
-		try {
-			return connection.prepareStatement(SQLUtils.getExternalQuery("INSERIR_FUNCIONARIO_SEM_TELEFONE"),
-					Statement.RETURN_GENERATED_KEYS);
-		} catch (SQLException e) {
-			PetShopConnectionException.handlePetShopConnectionException(e);
-		}
-		throw new PetShopConnectionException("Algo quebrou no prepare statement");
-	}
-
-	private PreparedStatement createStatementUpdate(Connection connection) {
-		try {
-			return connection.prepareStatement(SQLUtils.getExternalQuery("UPDATE_NOME_POR_MATRICULA"),
-					Statement.RETURN_GENERATED_KEYS);
-		} catch (SQLException e) {
-			PetShopConnectionException.handlePetShopConnectionException(e);
-		}
-		throw new PetShopConnectionException("Algo quebrou no prepare statement");
-	}
-
-	private PreparedStatement createStatementUpdateNomePorCpf(Connection connection) {
-		try {
-			return connection.prepareStatement(SQLUtils.getExternalQuery("UPDATE_NOME_POR_CPF"),
-					Statement.RETURN_GENERATED_KEYS);
-		} catch (SQLException e) {
-			PetShopConnectionException.handlePetShopConnectionException(e);
-		}
-		throw new PetShopConnectionException("Algo quebrou no prepare statement");
-	}
-
-	private PreparedStatement createStatementUpdateEnderecoPormatricula(Connection connection) {
-		try {
-			return connection.prepareStatement(SQLUtils.getExternalQuery("UPDATE_ENDERECO_POR_MATRICULA"),
-					Statement.RETURN_GENERATED_KEYS);
-		} catch (SQLException e) {
-			PetShopConnectionException.handlePetShopConnectionException(e);
-		}
-		throw new PetShopConnectionException("Algo quebrou no prepare statement");
-	}
-
 	private PreparedStatement createStatement(Connection connection, String query) {
 		try {
 			return connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -120,7 +59,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 	@Override
 	public Funcionario criarFuncionario(Funcionario funcionario) {
 		Connection conn = getConnection();
-		try (PreparedStatement statement = createStatement(conn)) {
+		String sql = "insert into funcionario (nome, cpf, endereco, telefone, funcao,dat_nasc, dat_adm) values (?, ?, ?, ?, ?, ?, ?)";
+		try (PreparedStatement statement = createStatement(conn, sql)) {
 			statement.setString(1, funcionario.getNome());
 			statement.setString(2, funcionario.getCpf());
 			statement.setString(3, funcionario.getEndereco());
@@ -129,6 +69,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 			statement.setDate(6, funcionario.getSqlDtNasc());
 			statement.setDate(7, funcionario.getSqlDtAdm());
 			statement.execute();
+			conn.commit();
 			setFuncionarioKey(statement, funcionario);
 			return funcionario;
 		} catch (SQLException e) {
@@ -150,7 +91,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
 	public Funcionario criarFuncionarioSemSalario(Funcionario funcionario) {
 		Connection conn = getConnection();
-		try (PreparedStatement statement = createStatementSemSalario(conn)) {
+		String sql = "insert into funcionario (nome, cpf, endereco, telefone,da_nasc, dat_adm) values (?, ?, ?, ?, ?, ?)";
+		try (PreparedStatement statement = createStatement(conn, sql)) {
 			statement.setString(1, funcionario.getNome());
 			statement.setString(2, funcionario.getCpf());
 			statement.setString(3, funcionario.getEndereco());
@@ -170,7 +112,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
 	public Funcionario criarFuncionarioSemTelefone(Funcionario funcionario) {
 		Connection conn = getConnection();
-		try (PreparedStatement statement = createStatementSemTelefone(conn)) {
+		String sql = "insert into funcionario (nome, cpf, endereco, salario ,da_nasc, dat_adm) values (?, ?, ?, ?, ?, ?)";
+		try (PreparedStatement statement = createStatement(conn, sql)) {
 			statement.setString(1, funcionario.getNome());
 			statement.setString(2, funcionario.getCpf());
 			statement.setString(3, funcionario.getEndereco());
@@ -189,7 +132,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
 	public Funcionario updateNomePorMatricula(Funcionario funcionario) {
 		Connection conn = getConnection();
-		try (PreparedStatement statement = createStatementUpdate(conn)) {
+		String sql = "UPDATE funcionario set nome=? where matricula = ?";
+		try (PreparedStatement statement = createStatement(conn, sql)) {
 			statement.setString(1, funcionario.getNome());
 			statement.setLong(2, funcionario.getMatricula());
 			statement.execute();
@@ -204,7 +148,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
 	public Funcionario updateNomePorCpf(Funcionario funcionario) {
 		Connection conn = getConnection();
-		try (PreparedStatement statement = createStatementUpdateNomePorCpf(conn)) {
+		String sql = "UPDATE funcionario set nome=? where cpf=?";
+		try (PreparedStatement statement = createStatement(conn, sql)) {
 			statement.setString(1, funcionario.getNome());
 			statement.setString(2, funcionario.getCpf());
 			statement.execute();
@@ -219,7 +164,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
 	public Funcionario updateEnderecoPorMatricula(Funcionario funcionario) {
 		Connection conn = getConnection();
-		try (PreparedStatement statement = createStatementUpdateEnderecoPormatricula(conn)) {
+		String sql = "UPDATE funcionario set endereco=? where matricula=?";
+		try (PreparedStatement statement = createStatement(conn, sql)) {
 			statement.setString(1, funcionario.getEndereco());
 			statement.setLong(2, funcionario.getMatricula());
 			statement.execute();
@@ -234,8 +180,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
 	public Funcionario updateFuncaoPorMatricula(Funcionario funcionario) {
 		Connection conn = getConnection();
-		try (PreparedStatement statement = createStatement(conn,
-				SQLUtils.getExternalQuery("UPDATE_FUNCAO_POR_MATRICULA"))) {
+		String sql = "UPDATE funcionario set funcao=? where matricula=?";
+		try (PreparedStatement statement = createStatement(conn, sql)) {
 			statement.setString(1, funcionario.getFuncao());
 			statement.setLong(2, funcionario.getMatricula());
 			statement.execute();
@@ -250,8 +196,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
 	public Funcionario updateDemisaoPorMatricula(Funcionario funcionario) {
 		Connection conn = getConnection();
-		try (PreparedStatement statement = createStatement(conn,
-				SQLUtils.getExternalQuery("UPDATE_DEMISSAO_POR_MATRICULA"))) {
+		String sql = "UPDATE funcionario set dtDemi=? where matricula=?";
+		try (PreparedStatement statement = createStatement(conn, sql)) {
 			statement.setDate(1, funcionario.getSqlDtDemi());
 			statement.setLong(2, funcionario.getMatricula());
 			statement.execute();
@@ -266,7 +212,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
 	public Funcionario demisaoPorMatricula(Funcionario funcionario) {
 		Connection conn = getConnection();
-		try (PreparedStatement statement = createStatement(conn, SQLUtils.getExternalQuery("DELECAO_POR_MATRICULA"))) {
+		String sql = "DELETE funcionario WHERE matricula=?";
+		try (PreparedStatement statement = createStatement(conn, sql)) {
 			statement.setLong(1, funcionario.getMatricula());
 			statement.execute();
 			setFuncionarioKey(statement, funcionario);
@@ -281,20 +228,20 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 	public List<Funcionario> listar() {
 		Connection conn = getConnection();
 		try {
-			PreparedStatement statement = createStatement(conn, SQLUtils.getExternalQuery("CONSULTA_FUNCIONARIO"));
+			PreparedStatement statement = createStatement(conn, "SELECT * FROM funcionario");
 
 			ResultSet resultado = statement.executeQuery();
-			
+
 			List<Funcionario> funcionarios = new ArrayList<>();
-			
-			while(resultado.next()) {
+
+			while (resultado.next()) {
 				Funcionario func = new Funcionario();
-				
+
 				func.setMatricula(resultado.getLong("matricula"));
-				
+
 				funcionarios.add(func);
 			}
-			
+
 			return funcionarios;
 		} catch (SQLException e) {
 			rollback(conn, e);
@@ -303,25 +250,25 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
 		return null;
 	}
-	
+
 	public List<Funcionario> listarPorDescricao(String descricao) {
 		Connection conn = getConnection();
 		try {
-			PreparedStatement statement = createStatement(conn, SQLUtils.getExternalQuery("CONSULTA_FUNCIONARIO_POR_DESCRICAO"));
+			PreparedStatement statement = createStatement(conn, "SELECT * FROM funcionario WHERE descricao=?");
 			statement.setString(1, descricao);
 			ResultSet resultado = statement.executeQuery();
-			
+
 			List<Funcionario> funcionarios = new ArrayList<>();
-			
-			while(resultado.next()) {
-				
+
+			while (resultado.next()) {
+
 				Funcionario func = new Funcionario();
-				
+
 				func.setMatricula(resultado.getLong("matricula"));
-				
+
 				funcionarios.add(func);
 			}
-			
+
 			return funcionarios;
 		} catch (SQLException e) {
 			rollback(conn, e);

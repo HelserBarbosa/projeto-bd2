@@ -8,20 +8,20 @@ import java.math.BigDecimal;
 @Repository
 public interface VendaAnimalDAO {
 
-    VendaAnimal insertComTodosOsDados(VendaAnimal vendaAnimal);
+	VendaAnimal insertComTodosOsDados(VendaAnimal vendaAnimal);
 
-    VendaAnimal insertSemInformarDesconto(VendaAnimal vendaAnimal);
+	VendaAnimal insertSemInformarDesconto(VendaAnimal vendaAnimal);
 
-    void deleteVendaPorNotaFiscal(Long notaFiscal);
+	void deleteVendaPorNotaFiscal(Long notaFiscal);
 
-    VendaAnimal updateNotaFiscalPelaNotaFiscal(VendaAnimal vendaAnimal);
+	boolean updateNotaFiscalPelaNotaFiscal(Long antigaNotaFiscal, Long novaNotaFiscal);
 
-    VendaAnimal updateRegAnimalPorNotaFiscal(VendaAnimal vendaAnimal);
+	boolean updateRegAnimalPorNotaFiscal(VendaAnimal vendaAnimal);
 
-    VendaAnimal updateMatFuncPorNotaFiscal(VendaAnimal vendaAnimal);
+	boolean updateMatFuncPorNotaFiscal(VendaAnimal vendaAnimal);
 
-    VendaAnimal updateDiaMesAnoPorNotaFiscal(VendaAnimal vendaAnimal);
+	boolean updateDiaMesAnoPorNotaFiscal(VendaAnimal vendaAnimal);
 
-    VendaAnimal updateDisconto(BigDecimal novoDesconto);
+	boolean updateDisconto(BigDecimal novoDesconto);
 
 }

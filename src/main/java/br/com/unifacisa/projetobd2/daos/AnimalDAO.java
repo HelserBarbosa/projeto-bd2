@@ -15,7 +15,6 @@ import br.com.unifacisa.projetobd2.dtos.ConsultaLucroDTO;
 import br.com.unifacisa.projetobd2.exceptions.PetShopConnectionException;
 import br.com.unifacisa.projetobd2.models.Animal;
 import br.com.unifacisa.projetobd2.util.ConnectionFactory;
-import br.com.unifacisa.projetobd2.util.SQLUtils;
 
 @Repository
 public class AnimalDAO {
@@ -513,25 +512,25 @@ public class AnimalDAO {
 		}
 
 	}
-	
-	public List<ConsultaLucroDTO> consultaLucro(){
+
+	public List<ConsultaLucroDTO> consultaLucro() {
 		Connection connection = new ConnectionFactory().getConnection();
 		try {
 
-
-			PreparedStatement statement = connection.prepareStatement(SQLUtils.getExternalQuery("CONSULTA_ANIMAL_LUCRO"));
+			String sql = "SELECT nome,(animal.preco_venda - animal.preco_compra) as lucro FROM animal";
+			PreparedStatement statement = connection.prepareStatement(sql);
 
 			ResultSet resultSet = statement.executeQuery();
 
 			List<ConsultaLucroDTO> resultado = new ArrayList<>();
-			while(resultSet.next()) {
-				
+			while (resultSet.next()) {
+
 				ConsultaLucroDTO consultaLucro = new ConsultaLucroDTO();
 				consultaLucro.setNome(resultSet.getString("nome"));
 				consultaLucro.setLucro(resultSet.getBigDecimal("lucro"));
-				
+
 				resultado.add(consultaLucro);
-				
+
 			}
 			return resultado;
 		} catch (SQLException e) {
