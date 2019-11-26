@@ -532,11 +532,11 @@ public class AnimalDAO {
 			animal.setTipo(resultSet.getString("tipo"));
 			animal.setPeso(resultSet.getBigDecimal("peso"));
 			animal.setAltura(resultSet.getBigDecimal("altura"));
-			animal.setDtUltMed(resultSet.getDate("dat_ult_med").toLocalDate());
+			animal.setDtUltMed(resultSet.getDate("dat_ult_med") == null ? null : resultSet.getDate("dat_ult_med").toLocalDate());
 			animal.setRaca(resultSet.getString("raca"));
 			animal.setPrecoCompra(resultSet.getBigDecimal("preco_compra"));
 			animal.setPrecoVenda(resultSet.getBigDecimal("preco_venda"));
-			animal.setDtNasc(resultSet.getDate("dat_nasc").toLocalDate());
+			animal.setDtNasc(resultSet.getDate("dat_nasc") == null ? null : resultSet.getDate("dat_nasc").toLocalDate());
 
 			resultado.add(animal);
 		}
