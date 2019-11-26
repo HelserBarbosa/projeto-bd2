@@ -14,6 +14,8 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import br.com.unifacisa.projetobd2.daos.ItemDAO;
+import br.com.unifacisa.projetobd2.dtos.LucroDTO;
+import br.com.unifacisa.projetobd2.dtos.TotalizacaoDTO;
 import br.com.unifacisa.projetobd2.exceptions.PetShopConnectionException;
 import br.com.unifacisa.projetobd2.models.Item;
 import br.com.unifacisa.projetobd2.util.ConnectionFactory;
@@ -277,6 +279,36 @@ public class ItemDAOImpl implements ItemDAO {
 			}
 			throw new PetShopConnectionException(e.getMessage());
 		}
+	}
+
+	@Override
+	public List<Item> buscarTodosOsRegistros() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Item> buscarItensPorDescricao(String tipo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Item> buscarItensPorTipo(String tipo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TotalizacaoDTO buscarTotalizacao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LucroDTO buscarLucroParaCadaItem() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
