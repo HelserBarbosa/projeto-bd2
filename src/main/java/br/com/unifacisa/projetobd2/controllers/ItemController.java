@@ -81,8 +81,8 @@ public class ItemController {
 	}
 
 	@GetMapping("lucro")
-	public ResponseEntity<LucroDTO> buscarLucroParaCadaItem() {
-		return new ResponseEntity<LucroDTO>(itemService.buscarLucroParaCadaItem(), HttpStatus.OK);
+	public ResponseEntity<List<LucroDTO>> buscarLucroParaCadaItem() {
+		return new ResponseEntity<List<LucroDTO>>(itemService.buscarLucroParaCadaItem(), HttpStatus.OK);
 	}
 
 }

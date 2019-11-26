@@ -361,16 +361,18 @@ public class ItemDAOImpl implements ItemDAO {
 	@Override
 	public TotalizacaoDTO buscarTotalizacao() {
 		Connection connection = getConnection();
-		String sql = "SELECT * FROM item WHERE tipo = ?";
+		// TODO: criar query para buscar totalizacao
+		String sql = "";
 		try (PreparedStatement statement = connection.prepareStatement(sql)) {
-			statement.setString(1, tipo);
 			statement.execute();
 			ResultSet rs = statement.getResultSet();
-			List<Item> itens = new ArrayList<Item>();
+			TotalizacaoDTO dto = new TotalizacaoDTO();
 			while (rs.next()) {
-				mapper(rs, itens);
+				dto.setQuantidade(rs.getInt("quantidade"));
+				dto.setTipoItem(rs.getString("tipo"));
+				dto.setTotalizacao(rs.getBigDecimal("totalizacao"));
+				return dto;
 			}
-			return itens;
 		} catch (SQLException e) {
 			rollback(connection);
 			PetShopConnectionException.handlePetShopConnectionException(e);
@@ -379,8 +381,25 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public LucroDTO buscarLucroParaCadaItem() {
-		// TODO Auto-generated method stub
+	public List<LucroDTO> buscarLucroParaCadaItem() {
+		Connection connection = getConnection();
+		// TODO: criar query para buscar lucro
+		String sql = "";
+		try (PreparedStatement statement = connection.prepareStatement(sql)) {
+			statement.execute();
+			ResultSet rs = statement.getResultSet();
+			List<LucroDTO> list = new ArrayList<LucroDTO>();
+			while (rs.next()) {
+				LucroDTO dto = new LucroDTO();
+				dto.setLucro(rs.getBigDecimal("lucro"));
+				dto.setNomeItem(rs.getString("nome"));
+				list.add(dto);
+			}
+			return list;
+		} catch (SQLException e) {
+			rollback(connection);
+			PetShopConnectionException.handlePetShopConnectionException(e);
+		}
 		return null;
 	}
 

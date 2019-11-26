@@ -67,7 +67,7 @@ public class ItemService {
 		return dao.buscarTotalizacao();
 	}
 
-	public LucroDTO buscarLucroParaCadaItem() {
+	public List<LucroDTO> buscarLucroParaCadaItem() {
 		return dao.buscarLucroParaCadaItem();
 	}
 

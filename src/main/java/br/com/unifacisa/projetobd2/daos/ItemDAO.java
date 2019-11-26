@@ -32,6 +32,6 @@ public interface ItemDAO {
 
 	TotalizacaoDTO buscarTotalizacao();
 	
-	LucroDTO buscarLucroParaCadaItem();
+	List<LucroDTO> buscarLucroParaCadaItem();
 
 }
