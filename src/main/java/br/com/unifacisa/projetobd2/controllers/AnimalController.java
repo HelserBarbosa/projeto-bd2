@@ -71,7 +71,7 @@ public class AnimalController {
 	@PutMapping("preco-compra-venda")
 	public ResponseEntity updateAnimalPrecoCompraVenda(@RequestBody Animal animal) {
 		service.updateAnimalPrecoCompraVenda(animal);
-		return new ResponseEntity<>(HttpStatus.OK)
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@PutMapping("tipo")
