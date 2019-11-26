@@ -175,19 +175,18 @@ public class AnimalDAO {
 		try {
 
 			StringBuilder sql = new StringBuilder(
-					"INSERT INTO animal(registro, tipo, peso, altura, dat_ult_med, raca, preco_compra, preco_venda)");
-			sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
+					"INSERT INTO animal(tipo, peso, altura, dat_ult_med, raca, preco_compra, preco_venda)");
+			sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?);");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
-			statement.setLong(1, animal.getRegistro());
-			statement.setString(2, animal.getTipo());
-			statement.setBigDecimal(3, animal.getPeso());
-			statement.setBigDecimal(4, animal.getAltura());
-			statement.setDate(5, Date.valueOf(animal.getDtUltMed()));
-			statement.setString(6, animal.getRaca());
-			statement.setBigDecimal(7, animal.getPrecoCompra());
-			statement.setBigDecimal(8, animal.getPrecoVenda());
+			statement.setString(1, animal.getTipo());
+			statement.setBigDecimal(2, animal.getPeso());
+			statement.setBigDecimal(3, animal.getAltura());
+			statement.setDate(4, Date.valueOf(animal.getDtUltMed()));
+			statement.setString(5, animal.getRaca());
+			statement.setBigDecimal(6, animal.getPrecoCompra());
+			statement.setBigDecimal(7, animal.getPrecoVenda());
 			setGeneratedKey(animal, statement);
 			statement.execute();
 			connection.close();
