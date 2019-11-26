@@ -61,14 +61,11 @@ public class VendaAnimalDAOImpl implements VendaAnimalDAO {
 
 	@Override
 	public VendaAnimal insertComTodosOsDados(VendaAnimal vendaAnimal) {
-		if (vendaAnimal.getAnimal() == null || vendaAnimal.getFuncionario() == null) {
-			throw new PetShopConnectionException("Venda possui campos invalidos");
-		}
 		Connection conn = getConnection();
 		String sql = "insert into venda_animal (reg_animal, mat_func, dia, mes, ano, comissao_a, desconto, valor_final) values (?, ?, ?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = createStatement(conn, sql)) {
-			statement.setLong(1, vendaAnimal.getAnimal().getRegistro());
-			statement.setLong(2, vendaAnimal.getFuncionario().getMatricula());
+			statement.setLong(1, vendaAnimal.getIdAnimal());
+			statement.setLong(2, vendaAnimal.getIdFuncionario());
 			statement.setInt(3, vendaAnimal.getDia());
 			statement.setInt(4, vendaAnimal.getMes());
 			statement.setInt(5, vendaAnimal.getAno());
