@@ -43,6 +43,35 @@
     { 
       "key": "INSERIR_FUNCIONARIO_SEM_SALARIO",
       "query":"insert into funcionario (nome, cpf, endereco, telefone,da_nasc, dat_adm) values (?, ?, ?, ?, ?, ?)"
+    },
+    { 
+      "key": "INSERIR_FUNCIONARIO_SEM_TELEFONE",
+      "query":"insert into funcionario (nome, cpf, endereco, salario ,da_nasc, dat_adm) values (?, ?, ?, ?, ?, ?)"
+    },
+    { 
+      "key": "UPDATE_NOME_POR_MATRICULA",
+      "query":"UPDATE funcionario set nome=? where matricula=?"
+    },
+    { 
+      "key": "UPDATE_NOME_POR_CPF",
+      "query":"UPDATE funcionario set nome=? where cpf=?"
+    },
+    { 
+      "key": "UPDATE_ENDERECO_POR_MATRICULA",
+      "query":"UPDATE funcionario set endereco=? where matricula=?"
+    },
+    { 
+      "key": "UPDATE_FUNCAO_POR_MATRICULA",
+      "query":"UPDATE funcionario set funcao=? where matricula=?"
+    },
+    { 
+      "key": "UPDATE_DEMISSAO_POR_MATRICULA",
+      "query":"UPDATE funcionario set dtDemi=? where matricula=?"
+    },
+    { 
+      "key": "DELECAO_POR_MATRICULA",
+      "query":"DELETE funcionario WHERE matricula=?"
     }
+   
   ]
 }

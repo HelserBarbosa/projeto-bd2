@@ -9,4 +9,19 @@ public interface FuncionarioDAO {
 	
 	Funcionario criarFuncionario(Funcionario funcionario);
 
+	Funcionario criarFuncionarioSemSalario(Funcionario funcionario);
+	
+	Funcionario criarFuncionarioSemTelefone(Funcionario funcionario);
+	
+	Funcionario updateNomePorMatricula(Funcionario funcionario);
+	
+	Funcionario updateNomePorCpf(Funcionario funcionario);
+	
+	Funcionario updateEnderecoPorMatricula(Funcionario funcionario);
+	
+	Funcionario updateFuncaoPorMatricula(Funcionario funcionario);
+	
+	Funcionario updateDemisaoPorMatricula(Funcionario funcionario);
+	
+	Funcionario demisaoPorMatricula(Funcionario funcionario);
 }
