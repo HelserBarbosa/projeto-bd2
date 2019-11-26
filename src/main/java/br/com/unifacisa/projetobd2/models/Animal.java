@@ -84,18 +84,18 @@ public class Animal {
 	}
 
 	public LocalDate getDtNasc() {
-		return DtNasc;
+		return dtNasc;
 	}
 
 	public void setDtNasc(LocalDate dtNasc) {
-		DtNasc = dtNasc;
+		this.dtNasc = dtNasc;
 	}
 
 	@Override
 	public String toString() {
 		return "Animal [registro=" + registro + ", tipo=" + tipo + ", peso=" + peso + ", altura=" + altura
 				+ ", dtUltMed=" + dtUltMed + ", raca=" + raca + ", precoCompra=" + precoCompra + ", precoVenda="
-				+ precoVenda + ", DtNasc=" + DtNasc + "]";
+				+ precoVenda + ", DtNasc=" + dtNasc + "]";
 	}
 
 }
