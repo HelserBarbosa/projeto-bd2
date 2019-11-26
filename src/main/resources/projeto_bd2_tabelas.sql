@@ -14,7 +14,7 @@ CREATE TABLE animal(
 CREATE TABLE funcionario(
 	matricula serial,
 	nome varchar(200),
-	cpf int,
+	cpf varchar(50),
 	endereco varchar(200),
 	telefone varchar(200),
 	salario numeric(10,2),

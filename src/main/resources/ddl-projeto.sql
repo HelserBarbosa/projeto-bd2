@@ -14,7 +14,7 @@ CREATE TABLE animal(
 CREATE TABLE funcionario(
                             matricula serial,
                             nome varchar(200),
-                            cpf int,
+                            cpf varchar(50),
                             endereco varchar(200),
                             telefone varchar(200),
                             salario numeric(10,2),
@@ -116,15 +116,15 @@ CREATE OR REPLACE FUNCTION set_salario()
     RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.funcao = 'atendente' THEN
-        UPDATE funcionario f SET NEW.salario = 1000.00 WHERE f.matricula = NEW.matricula;
+        UPDATE funcionario f SET salario = 1000.00 WHERE f.matricula = NEW.matricula;
     ELSIF NEW.funcao = 'caixa' THEN
-        UPDATE funcionario f SET NEW.salario = 1500.00 WHERE f.matricula = NEW.matricula;
+        UPDATE funcionario f SET salario = 1500.00 WHERE f.matricula = NEW.matricula;
     ELSIF NEW.funcao = 'veterinário' THEN
-        UPDATE funcionario f SET NEW.salario = 5000.00 WHERE f.matricula = NEW.matricula;
+        UPDATE funcionario f SET salario = 5000.00 WHERE f.matricula = NEW.matricula;
     ELSIF NEW.funcao = 'cuidador' THEN
-        UPDATE funcionario f SET NEW.salario = 2000.00 WHERE f.matricula = NEW.matricula;
+        UPDATE funcionario f SET salario = 2000.00 WHERE f.matricula = NEW.matricula;
     ELSIF NEW.funcao = 'gerente' THEN
-        UPDATE funcionario f SET NEW.salario = 4000.00 WHERE f.matricula = NEW.matricula;
+        UPDATE funcionario f SET salario = 4000.00 WHERE f.matricula = NEW.matricula;
     ELSE
         RAISE EXCEPTION 'Função não encontrada no quadro de funcionários';
     END IF;
