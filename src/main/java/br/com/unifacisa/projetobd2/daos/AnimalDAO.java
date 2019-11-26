@@ -38,7 +38,6 @@ public class AnimalDAO {
 			statement.setDate(8, Date.valueOf(animal.getDtNasc()));
 			statement.execute();
 			setGeneratedKey(animal, statement);
-			statement.close();
 			connection.close();
 			return animal;
 		} catch (SQLException e) {
@@ -76,7 +75,6 @@ public class AnimalDAO {
 			statement.setBigDecimal(5, animal.getPrecoVenda());
 			statement.setDate(6, Date.valueOf(animal.getDtNasc()));
 			statement.execute();
-			statement.close();
 			connection.close();
 			return setGeneratedKey(animal, statement);
 
@@ -107,7 +105,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 			return setGeneratedKey(animal, statement);
 		} catch (SQLException e) {
@@ -137,7 +134,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 			return setGeneratedKey(animal, statement);
 		} catch (SQLException e) {
@@ -166,7 +162,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 			return setGeneratedKey(animal, statement);
 		} catch (SQLException e) {
@@ -196,7 +191,6 @@ public class AnimalDAO {
 
 			statement.execute();
 
-			statement.close();
 			connection.close();
 			return setGeneratedKey(animal, statement);
 		} catch (SQLException e) {
@@ -547,11 +541,11 @@ public class AnimalDAO {
 			animal.setTipo(resultSet.getString("tipo"));
 			animal.setPeso(resultSet.getBigDecimal("peso"));
 			animal.setAltura(resultSet.getBigDecimal("altura"));
-			animal.setDtUltMed(resultSet.getDate("dat_ult_med").toLocalDate());
+			animal.setDtUltMed(resultSet.getDate("dat_ult_med") == null ? null : resultSet.getDate("dat_ult_med").toLocalDate());
 			animal.setRaca(resultSet.getString("raca"));
 			animal.setPrecoCompra(resultSet.getBigDecimal("preco_compra"));
 			animal.setPrecoVenda(resultSet.getBigDecimal("preco_venda"));
-			animal.setDtNasc(resultSet.getDate("dat_nasc").toLocalDate());
+			animal.setDtNasc(resultSet.getDate("dat_nasc") == null ? null : resultSet.getDate("dat_nasc").toLocalDate());
 
 			resultado.add(animal);
 		}
